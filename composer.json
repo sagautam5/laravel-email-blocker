@@ -5,7 +5,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Sagautam5\\LaravelEmailBlocker\\": "src/"
+            "Sagautam5\\LaravelEmailBlocker\\": "app/",
+            "Sagautam5\\LaravelEmailBlocker\\Database\\Migrations\\": "database/migrations/"    
         }
     },
     "authors": [
@@ -13,6 +14,14 @@
             "name": "Sagar Gautam"
         }
     ],
-    "minimum-stability": "stable",
-    "require": {}
+    "minimum-stability": "dev",
+    "require": {},
+    "extra": {
+        "class": "Sagautam5\\LaravelEmailBlocker",
+        "laravel": {
+            "providers": [
+                "Sagautam5\\LaravelEmailBlocker\\App\\Providers\\LaravelEmailBlockerServiceProvider"            
+            ]
+        }
+    }
 }
