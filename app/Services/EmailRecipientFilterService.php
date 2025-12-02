@@ -1,6 +1,6 @@
 <?php
 
-namespace Sagautam5\LaravelEmailBlocker\App\Services;
+namespace Sagautam5\LaravelEmailBlocker\Services;
 
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
@@ -12,9 +12,9 @@ class EmailRecipientFilterService extends EmailService
     /**
      * Prevent duplicate emails
      */
-    public function filterRecipients(): Email|bool
+    public function filterReceivers(): Email|bool
     {
-        [$to, $cc, $bcc] = $this->getFilteredRecipients();
+        [$to, $cc, $bcc] = $this->getFilteredReceivers();
 
         if (empty(array_filter([$to, $cc, $bcc]))) {
             return false;
@@ -22,17 +22,17 @@ class EmailRecipientFilterService extends EmailService
 
         $to = $this->ensureToExists($to, $cc, $bcc);
 
-        $this->applyRecipients($to, $cc, $bcc);
+        $this->applyReceivers($to, $cc, $bcc);
 
         return $this->message;
     }
 
     /**
-     * filter all allowed recipients.
+     * filter all allowed receivers.
      *
      * @return array{0: array<string>, 1: array<string>, 2: array<string>}
      */
-    protected function getFilteredRecipients(): array
+    protected function getFilteredReceivers(): array
     {
         return array_map(
             fn ($emails) => $this->allowedEmails($emails),
@@ -85,7 +85,7 @@ class EmailRecipientFilterService extends EmailService
     }
 
     /**
-     * Filter out recipients that have already been sent today.
+     * Filter out receivers that have already been sent today.
      *
      * @param  array<string>  $emails
      * @return array<string>
@@ -96,13 +96,13 @@ class EmailRecipientFilterService extends EmailService
     }
 
     /**
-     * Apply "To", "Cc", and "Bcc" recipients.
+     * Apply "To", "Cc", and "Bcc" receivers.
      *
      * @param  array<string>  $to
      * @param  array<string>  $cc
      * @param  array<string>  $bcc
      */
-    protected function applyRecipients(array $to, array $cc, array $bcc): void
+    protected function applyReceivers(array $to, array $cc, array $bcc): void
     {
         $this->applyTo($to);
 
@@ -122,26 +122,26 @@ class EmailRecipientFilterService extends EmailService
     }
 
     /**
-     * Apply "To" recipients.
+     * Apply "To" receivers.
      *
      * @param  array<string>  $to
      */
     protected function applyTo(array $to): void
     {
         if (empty($to)) {
-            throw new \RuntimeException('Cannot apply recipients: no "to" email address available.');
+            throw new \RuntimeException('Cannot apply receivers: no "to" email address available.');
         }
         $this->message->to($to[0]);
     }
 
     /**
-     * Apply "Cc" recipients.
+     * Apply "Cc" receivers.
      *
      * @param  array<int, Address>  $cc
      */
     protected function applyCc(array $cc): void
     {
-        $this->clearCc();
+        $this->removeCc();
 
         foreach ($cc as $ccAddress) {
             $this->message->addCc($ccAddress);
@@ -149,21 +149,21 @@ class EmailRecipientFilterService extends EmailService
     }
 
     /**
-     * Clear all "Cc" recipients.
+     * Remove all "Cc" receivers.
      */
-    protected function clearCc(): void
+    protected function removeCc(): void
     {
         $this->message->cc();
     }
 
     /**
-     * Apply "Bcc" recipients.
+     * Apply "Bcc" receivers.
      *
      * @param  array<int, Address>  $bcc
      */
     protected function applyBcc(array $bcc): void
     {
-        $this->clearBcc();
+        $this->removeBcc();
 
         foreach ($bcc as $bccAddress) {
             $this->message->addBcc($bccAddress);
@@ -171,9 +171,9 @@ class EmailRecipientFilterService extends EmailService
     }
 
     /**
-     * Clear all "Bcc" recipients.
+     * Remove all "Bcc" receivers.
      */
-    protected function clearBcc(): void
+    protected function removeBcc(): void
     {
         $this->message->bcc();
     }

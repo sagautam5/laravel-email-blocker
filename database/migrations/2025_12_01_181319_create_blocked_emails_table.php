@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('blocked_emails', function (Blueprint $table) {
+        Schema::create(config('email-blocker.log_table', 'blocked_emails'), function (Blueprint $table) {
             $table->id();
             $table->string('mailable')->nullable();
             $table->string('email');
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('content');
             $table->string('from_name');
             $table->string('from_address');
-            $table->string('reason');
+            $table->string('reason')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('blocked_emails');
+        Schema::dropIfExists(config('email-blocker.log_table', 'blocked_emails'));
     }
 };

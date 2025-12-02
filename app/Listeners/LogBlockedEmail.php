@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Listeners;
+namespace Sagautam5\LaravelEmailBlocker\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Sagautam5\LaravelEmailBlocker\App\Events\EmailBlockedEvent;
+use Sagautam5\LaravelEmailBlocker\Events\EmailBlockedEvent;
 
 class LogBlockedEmail
 {

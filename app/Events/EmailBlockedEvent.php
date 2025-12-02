@@ -1,6 +1,6 @@
 <?php
 
-namespace Sagautam5\LaravelEmailBlocker\App\Events;
+namespace Sagautam5\LaravelEmailBlocker\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;

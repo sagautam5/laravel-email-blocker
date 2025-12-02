@@ -20,7 +20,7 @@
         "class": "Sagautam5\\LaravelEmailBlocker",
         "laravel": {
             "providers": [
-                "Sagautam5\\LaravelEmailBlocker\\App\\Providers\\LaravelEmailBlockerServiceProvider"            
+                "Sagautam5\\LaravelEmailBlocker\\Providers\\LaravelEmailBlockerServiceProvider"            
             ]
         }
     }

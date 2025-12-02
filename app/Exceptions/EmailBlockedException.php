@@ -1,6 +1,6 @@
 <?php 
 
-namespace Sagautam5\LaravelEmailBlocker\App\Exceptions;
+namespace Sagautam5\LaravelEmailBlocker\Exceptions;
 
 use Exception;
 

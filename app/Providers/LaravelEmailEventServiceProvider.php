@@ -1,12 +1,12 @@
 <?php
 
-namespace Sagautam5\LaravelEmailBlocker\App\Providers;
+namespace Sagautam5\LaravelEmailBlocker\Providers;
 
-use App\Listeners\LogBlockedEmail;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Mail\Events\MessageSent;
-use Sagautam5\LaravelEmailBlocker\App\Events\EmailBlockedEvent;
+use Sagautam5\LaravelEmailBlocker\Events\EmailBlockedEvent;
+use Sagautam5\LaravelEmailBlocker\Listeners\LogBlockedEmail;
 
 class LaravelEmailEventServiceProvider extends EventServiceProvider
 {

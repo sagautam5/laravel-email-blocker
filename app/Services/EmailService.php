@@ -1,6 +1,6 @@
 <?php
 
-namespace Sagautam5\LaravelEmailBlocker\App\Services;
+namespace Sagautam5\LaravelEmailBlocker\Services;
 
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
@@ -22,14 +22,6 @@ abstract class EmailService
     protected function getSubject(): string
     {
         return once(fn () => (string) $this->message->getSubject());
-    }
-
-    /**
-     * Get email body hash.
-     */
-    protected function getBodyHash(): string
-    {
-        return once(fn () => hash('sha256', strip_tags($this->getBody())));
     }
 
     /**

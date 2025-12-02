@@ -1,17 +1,19 @@
 <?php 
 
-namespace Sagautam5\LaravelEmailBlocker\App\Rule;
+namespace Sagautam5\LaravelEmailBlocker\Rule;
 
 use Closure;
-use Sagautam5\LaravelEmailBlocker\App\Exceptions\EmailBlockedException;
-use Sagautam5\LaravelEmailBlocker\App\Supports\EmailContext;
+use Sagautam5\LaravelEmailBlocker\Contracts\BlockEmailRule;
+use Sagautam5\LaravelEmailBlocker\Exceptions\EmailBlockedException;
+use Sagautam5\LaravelEmailBlocker\Supports\EmailContext;
 
-class TimeWindowRule
+class BlockByTimeWindowRule implements BlockEmailRule
 {
-    public function handle(EmailContext $context, Closure $next)
+    public function handle(EmailContext $context, Closure $next): Closure
     {
-        [$from, $to] = config('email-blocker.block_time_window', [null, null]);
-        $timezone = config('email-blocker.timezone', 'UTC');
+        $from = config('email-blocker.time_window.from');
+        $to   = config('email-blocker.time_window.to');
+        $timezone = config('email-blocker.time_window.timezone', 'UTC');
 
         if ($from && $to) {
             $now = now()->setTimezone($timezone);
