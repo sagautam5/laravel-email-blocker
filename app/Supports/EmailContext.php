@@ -1,6 +1,6 @@
 <?php 
 
-namespace Sagautam5\LaravelEmailBlocker\Supports;
+namespace Sagautam5\EmailBlocker\Supports;
 
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Message;

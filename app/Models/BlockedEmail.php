@@ -1,6 +1,6 @@
 <?php
 
-namespace Sagautam5\LaravelEmailBlocker\Models;
+namespace Sagautam5\EmailBlocker\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

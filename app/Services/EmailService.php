@@ -1,6 +1,6 @@
 <?php
 
-namespace Sagautam5\LaravelEmailBlocker\Services;
+namespace Sagautam5\EmailBlocker\Services;
 
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;

@@ -1,22 +1,23 @@
 <?php
 
-use Sagautam5\LaravelEmailBlocker\Rule\BlockByDomainRule;
-use Sagautam5\LaravelEmailBlocker\Rule\BlockByEnvironmentRule;
-use Sagautam5\LaravelEmailBlocker\Rule\BlockByMailableRule;
-use Sagautam5\LaravelEmailBlocker\Rule\BlockByTimeWindowRule;
-use Sagautam5\LaravelEmailBlocker\Rule\BlockGloballlyRule;
+use Sagautam5\EmailBlocker\Rules\BlockByDomainRule;
+use Sagautam5\EmailBlocker\Rules\BlockByEnvironmentRule;
+use Sagautam5\EmailBlocker\Rules\BlockByMailableRule;
+use Sagautam5\EmailBlocker\Rules\BlockByTimeWindowRule;
+use Sagautam5\EmailBlocker\Rules\BlockGloballlyRule;
 
 return [
+
+    'log_enabled' => true,
 
     'log_table' => 'blocked_emails',
 
     'rules' => [
         BlockGloballlyRule::class,
-        BlockByDomainRule::class,
         BlockByEnvironmentRule::class,
-        BlockByMailableRule::class,
-        BlockByTimeWindowRule::class,
-        
+        // BlockByDomainRule::class,
+        // BlockByMailableRule::class,
+                
         // User can add their own
         // App\Rules\CustomEmailBlockRule::class,
     ],
