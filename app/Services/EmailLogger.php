@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Sagautam5\EmailBlocker\Services;
 
@@ -8,9 +8,11 @@ class EmailLogger
 {
     public function info(EmailContext $context, string $class)
     {
-        if(config('email-blocker.log_enabled') !== true) { return; }
+        if (config('email-blocker.log_enabled') !== true) {
+            return;
+        }
 
-        logger('Email blocked due to ' . $class . '!');
+        logger('Email blocked due to '.$class.'!');
         // TODO: implement logging
     }
 }

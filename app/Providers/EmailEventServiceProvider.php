@@ -12,11 +12,11 @@ class EmailEventServiceProvider extends EventServiceProvider
 {
     protected $listen = [
         MessageSending::class => [
-            HandleMessageSending::class
+            HandleMessageSending::class,
         ],
         EmailBlockedEvent::class => [
-            LogBlockedEmail::class
-        ]
+            LogBlockedEmail::class,
+        ],
     ];
 
     /**

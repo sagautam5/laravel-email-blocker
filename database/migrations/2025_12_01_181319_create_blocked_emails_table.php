@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('from_name');
             $table->string('from_address');
             $table->string('reason')->nullable();
+            $table->string('receiver_type', ['to', 'cc', 'bcc']);
             $table->timestamps();
         });
     }

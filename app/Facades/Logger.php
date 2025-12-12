@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Sagautam5\EmailBlocker\Facades;
 
@@ -8,7 +8,7 @@ use Sagautam5\EmailBlocker\Supports\EmailContext;
 
 /**
  * @method static void info(EmailContext $context, string $class)
- * 
+ *
  * @see \Sagautam5\EmailBlocker\Services\EmailLogger
  */
 class Logger extends Facade

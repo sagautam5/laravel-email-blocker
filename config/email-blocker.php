@@ -3,7 +3,6 @@
 use Sagautam5\EmailBlocker\Rules\BlockByDomainRule;
 use Sagautam5\EmailBlocker\Rules\BlockByEnvironmentRule;
 use Sagautam5\EmailBlocker\Rules\BlockByMailableRule;
-use Sagautam5\EmailBlocker\Rules\BlockByTimeWindowRule;
 use Sagautam5\EmailBlocker\Rules\BlockGloballlyRule;
 
 return [
@@ -17,25 +16,25 @@ return [
         BlockByEnvironmentRule::class,
         // BlockByDomainRule::class,
         // BlockByMailableRule::class,
-                
+
         // User can add their own
         // App\Rules\CustomEmailBlockRule::class,
     ],
 
     'settings' => [
         'blocked_environments' => [
-            'local', 
-            'staging'
+            'local',
+            'staging',
         ],
         'time_window' => [
             'from' => '09:00',
-            'to'   => '18:00',
+            'to' => '18:00',
             'timezone' => 'Asia/Kathmandu',
         ],
         'global_block' => false,
         'blocked_domains' => [
             // E.g. 'gmail.com',
-            
+
         ],
         'blocked_mailables' => [
             // E.g. 'App\Mail\WelcomeMail',
