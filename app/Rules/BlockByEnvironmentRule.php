@@ -3,9 +3,8 @@
 namespace Sagautam5\EmailBlocker\Rules;
 
 use Closure;
-use Sagautam5\EmailBlocker\Contracts\BlockEmailRule;
 
-class BlockByEnvironmentRule implements BlockEmailRule
+class BlockByEnvironmentRule extends BaseRule
 {
     public function handle(array $emails, Closure $next): Closure|array
     {
@@ -13,10 +12,17 @@ class BlockByEnvironmentRule implements BlockEmailRule
 
         if (count($blockedEnvironments) > 0) {
             if (in_array(app()->environment(), $blockedEnvironments)) {
+                $this->handleLog($emails);
+
                 return [];
             }
         }
 
         return $next($emails);
+    }
+
+    public function getReason(): string
+    {
+        return 'Evironment Block on '.app()->environment();
     }
 }

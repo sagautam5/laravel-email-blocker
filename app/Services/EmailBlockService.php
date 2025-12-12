@@ -67,6 +67,8 @@ class EmailBlockService
      */
     protected function checkIfEmptyReceivers(): bool
     {
+        $this->context = new EmailContext($this->message);
+
         return
             empty($this->context->getToEmails()) &&
             empty($this->context->getCcEmails()) &&
@@ -81,9 +83,7 @@ class EmailBlockService
         return app(Pipeline::class)
             ->send($emails)
             ->through(config('email-blocker.rules'))
-            ->then(function (array $emails) {
-                return true;
-            });
+            ->thenReturn();
     }
 
     /**

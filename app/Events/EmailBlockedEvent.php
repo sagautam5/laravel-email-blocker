@@ -6,7 +6,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Sagautam5\EmailBlocker\Supports\EmailContext;
+use Sagautam5\EmailBlocker\Supports\BlockedEmailContext;
 
 class EmailBlockedEvent
 {
@@ -15,7 +15,7 @@ class EmailBlockedEvent
     /**
      * Create a new event instance.
      */
-    public function __construct(public EmailContext $context, public string $class)
+    public function __construct(public BlockedEmailContext $context)
     {
         //
     }

@@ -20,6 +20,6 @@ class LogBlockedEmail
      */
     public function handle(EmailBlockedEvent $event): void
     {
-        Logger::info($event->context, $event->class);
+        Logger::info($event->context);
     }
 }

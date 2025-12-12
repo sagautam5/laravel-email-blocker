@@ -2,17 +2,12 @@
 
 namespace Sagautam5\EmailBlocker\Services;
 
-use Sagautam5\EmailBlocker\Supports\EmailContext;
+use Sagautam5\EmailBlocker\Supports\BlockedEmailContext;
 
 class EmailLogger
 {
-    public function info(EmailContext $context, string $class)
+    public function info(BlockedEmailContext $context)
     {
-        if (config('email-blocker.log_enabled') !== true) {
-            return;
-        }
-
-        logger('Email blocked due to '.$class.'!');
-        // TODO: implement logging
+        logger('Email blocked due to: '.$context->reason);
     }
 }
