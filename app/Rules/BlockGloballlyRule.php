@@ -8,7 +8,7 @@ class BlockGloballlyRule extends BaseRule
 {
     public function handle(array $emails, Closure $next): Closure|array
     {
-        if (config('email-blocker.settings.global_block') === true) {
+        if (config('email-blocker.settings.global_block') == true) {
             $this->handleLog($emails);
 
             return [];

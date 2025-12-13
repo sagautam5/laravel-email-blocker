@@ -2,12 +2,21 @@
 
 namespace Sagautam5\EmailBlocker\Supports;
 
+use Illuminate\Mail\Mailable;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
 class EmailContext
 {
-    public function __construct(public Email $message) {}
+    public function __construct(public Email $message, public ?string $mailable = null) {}
+
+    /**
+     * Get mailable class.
+     */
+    public function getMailableClass(): ?string
+    {
+        return $this->mailable ? get_class($this->mailable) : null;
+    }
 
     /**
      * Get email sender.

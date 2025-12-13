@@ -17,7 +17,7 @@ return [
         BlockGloballlyRule::class,
         BlockByEnvironmentRule::class,
         BlockByDomainRule::class,
-        // BlockByMailableRule::class,
+        BlockByMailableRule::class,
         BlockByTimeWindowRule::class,
 
         // User can add their own
@@ -27,12 +27,12 @@ return [
     'settings' => [
         'blocked_environments' => [
             // 'local',
-            'staging',
+            // 'staging',
         ],
         'time_window' => [
-            'from' => '09:00',
-            'to' => '18:00',
-            'timezone' => 'Asia/Kathmandu',
+            // 'from' => '09:00',
+            // 'to' => '18:00',
+            // 'timezone' => 'Asia/Kathmandu',
         ],
         'global_block' => false,
         'blocked_domains' => [

@@ -21,8 +21,8 @@ class HandleMessageSending
      */
     public function handle(MessageSending $event): Email|bool
     {
-        dd((new EmailBlockService($event->message))->applyRules());
+        $mailable = $event->data['__laravel_mailable'] ?? null;
 
-        return (new EmailBlockService($event->message))->applyRules();
+        return (new EmailBlockService($event->message, $mailable))->applyRules();
     }
 }

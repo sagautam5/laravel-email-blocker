@@ -2,7 +2,9 @@
 
 namespace Sagautam5\EmailBlocker\Services;
 
+use Illuminate\Mail\Mailable;
 use Illuminate\Pipeline\Pipeline;
+use Sagautam5\EmailBlocker\Rules\BaseRule;
 use Sagautam5\EmailBlocker\Supports\EmailContext;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
@@ -11,9 +13,9 @@ class EmailBlockService
 {
     private EmailContext $context;
 
-    public function __construct(protected Email $message)
+    public function __construct(protected Email $message, ?string $mailable = null)
     {
-        $this->context = new EmailContext($this->message);
+        $this->context = new EmailContext($this->message, $mailable);
     }
 
     /**
@@ -37,7 +39,9 @@ class EmailBlockService
      */
     protected function applyRulesOnTo(): void
     {
-        $receivers = $this->getFilteredReceivers($this->context->getToEmails());
+        $emails = $this->context->getToEmails();
+
+        $receivers = $this->getFilteredReceivers($emails);
 
         $this->applyTo($receivers);
     }
@@ -47,7 +51,9 @@ class EmailBlockService
      */
     protected function applyRulesOnCc(): void
     {
-        $receivers = $this->getFilteredReceivers($this->context->getCcEmails());
+        $emails = $this->context->getCcEmails();
+
+        $receivers = $this->getFilteredReceivers($emails);
 
         $this->applyCc($receivers);
     }
@@ -57,7 +63,9 @@ class EmailBlockService
      */
     protected function applyRulesOnBcc(): void
     {
-        $receivers = $this->getFilteredReceivers($this->context->getBccEmails());
+        $emails = $this->context->getBccEmails();
+        
+        $receivers = $this->getFilteredReceivers($emails);
 
         $this->applyBcc($receivers);
     }
@@ -80,10 +88,25 @@ class EmailBlockService
      */
     protected function getFilteredReceivers($emails): array
     {
+        $rules = $this->getBlockRules();
+
         return app(Pipeline::class)
             ->send($emails)
-            ->through(config('email-blocker.rules'))
+            ->through($rules)
             ->thenReturn();
+    }
+
+    protected function getBlockRules(): array
+    {
+        return array_map(function ($rule) {
+            $instance = app($rule);
+
+            if ($instance instanceof BaseRule) {
+                $instance->setContext($this->context);
+            }
+
+            return $instance;
+        }, config('email-blocker.rules'));
     }
 
     /**
