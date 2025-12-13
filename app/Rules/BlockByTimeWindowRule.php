@@ -2,17 +2,30 @@
 
 namespace Sagautam5\EmailBlocker\Rules;
 
+use Carbon\Carbon;
 use Closure;
 
 class BlockByTimeWindowRule extends BaseRule
 {
     public function handle(array $emails, Closure $next): Closure|array
     {
+        $timeWindow = config('email-blocker.settings.time_window', []);
+
+        if (! empty($timeWindow['from']) && ! empty($timeWindow['to'])) {
+            $timezone = $timeWindow['timezone'] ?? config('app.timezone');
+            $time = Carbon::now()->timezone($timezone);
+            if ($time->between($timeWindow['from'], $timeWindow['to'])) {
+                $this->handleLog($emails);
+
+                return [];
+            }
+        }
+
         return $next($emails);
     }
 
     public function getReason(): string
     {
-        return 'Time Window';
+        return 'Time Window Block';
     }
 }

@@ -21,6 +21,8 @@ class HandleMessageSending
      */
     public function handle(MessageSending $event): Email|bool
     {
+        dd((new EmailBlockService($event->message))->applyRules());
+
         return (new EmailBlockService($event->message))->applyRules();
     }
 }

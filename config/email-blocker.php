@@ -1,8 +1,10 @@
 <?php
 
+use App\Mail\SendWelcomeEmail;
 use Sagautam5\EmailBlocker\Rules\BlockByDomainRule;
 use Sagautam5\EmailBlocker\Rules\BlockByEnvironmentRule;
 use Sagautam5\EmailBlocker\Rules\BlockByMailableRule;
+use Sagautam5\EmailBlocker\Rules\BlockByTimeWindowRule;
 use Sagautam5\EmailBlocker\Rules\BlockGloballlyRule;
 
 return [
@@ -14,8 +16,9 @@ return [
     'rules' => [
         BlockGloballlyRule::class,
         BlockByEnvironmentRule::class,
-        // BlockByDomainRule::class,
+        BlockByDomainRule::class,
         // BlockByMailableRule::class,
+        BlockByTimeWindowRule::class,
 
         // User can add their own
         // App\Rules\CustomEmailBlockRule::class,
@@ -23,7 +26,7 @@ return [
 
     'settings' => [
         'blocked_environments' => [
-            'local',
+            // 'local',
             'staging',
         ],
         'time_window' => [
@@ -33,10 +36,12 @@ return [
         ],
         'global_block' => false,
         'blocked_domains' => [
+            // 'example.com',
             // E.g. 'gmail.com',
 
         ],
         'blocked_mailables' => [
+            // SendWelcomeEmail::class,
             // E.g. 'App\Mail\WelcomeMail',
         ],
     ],
