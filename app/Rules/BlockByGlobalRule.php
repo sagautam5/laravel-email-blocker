@@ -4,7 +4,7 @@ namespace Sagautam5\EmailBlocker\Rules;
 
 use Closure;
 
-class BlockGloballlyRule extends BaseRule
+class BlockByGlobalRule extends BaseRule
 {
     public function handle(array $emails, Closure $next): Closure|array
     {
