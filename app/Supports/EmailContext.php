@@ -25,6 +25,11 @@ class EmailContext
         return once(fn () => $this->message->getFrom()[0]->getAddress());
     }
 
+    public function getFromName(): string
+    {
+        return once(fn () => $this->message->getFrom()[0]->getName());
+    }
+
     /**
      * Get email subject.
      */

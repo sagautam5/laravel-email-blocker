@@ -30,7 +30,7 @@ class BlockByEmailRule extends BaseRule implements BlockEmailRule
 
     protected function filterEmails($emails): array
     {
-        $filtered =  array_values(array_filter($emails, fn ($email) => ! in_array($email, $this->getBlockedEmails())));
+        $filtered = array_values(array_filter($emails, fn ($email) => ! in_array($email, $this->getBlockedEmails())));
 
         return [$filtered, array_diff($emails, $filtered)];
     }

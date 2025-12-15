@@ -13,14 +13,21 @@ return new class extends Migration
     {
         Schema::create(config('email-blocker.log_table', 'blocked_emails'), function (Blueprint $table) {
             $table->id();
-            $table->string('mailable')->nullable();
-            $table->string('email');
-            $table->string('subject');
-            $table->string('content');
+            $table->string('mailable')->nullable()->index();
+            $table->string('subject')->nullable();
+
             $table->string('from_name');
-            $table->string('from_address');
+            $table->string('from_email');
+
+            $table->string('email')->index();
+            $table->longText('content')->nullable();
+
+            $table->string('rule')->nullable()->index();
             $table->string('reason')->nullable();
-            $table->string('receiver_type', ['to', 'cc', 'bcc']);
+            $table->enum('receiver_type', ['to', 'cc', 'bcc']);
+
+            $table->timestamp('blocked_at')->useCurrent();
+
             $table->timestamps();
         });
     }

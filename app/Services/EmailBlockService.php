@@ -3,6 +3,7 @@
 namespace Sagautam5\EmailBlocker\Services;
 
 use Illuminate\Pipeline\Pipeline;
+use Sagautam5\EmailBlocker\Enums\ReceiverType;
 use Sagautam5\EmailBlocker\Rules\BaseRule;
 use Sagautam5\EmailBlocker\Supports\EmailContext;
 use Symfony\Component\Mime\Address;
@@ -40,7 +41,7 @@ class EmailBlockService
     {
         $emails = $this->context->getToEmails();
 
-        $receivers = $this->getFilteredReceivers($emails);
+        $receivers = $this->getFilteredReceivers($emails, ReceiverType::TO);
 
         $this->applyTo($receivers);
     }
@@ -52,7 +53,7 @@ class EmailBlockService
     {
         $emails = $this->context->getCcEmails();
 
-        $receivers = $this->getFilteredReceivers($emails);
+        $receivers = $this->getFilteredReceivers($emails, ReceiverType::CC);
 
         $this->applyCc($receivers);
     }
@@ -64,7 +65,7 @@ class EmailBlockService
     {
         $emails = $this->context->getBccEmails();
 
-        $receivers = $this->getFilteredReceivers($emails);
+        $receivers = $this->getFilteredReceivers($emails, ReceiverType::BCC);
 
         $this->applyBcc($receivers);
     }
@@ -85,9 +86,9 @@ class EmailBlockService
     /**
      * @param  array<string>  $emails
      */
-    protected function getFilteredReceivers($emails): array
+    protected function getFilteredReceivers(array $emails, ReceiverType $type): array
     {
-        $rules = $this->getBlockRules();
+        $rules = $this->getBlockRules($type);
 
         return app(Pipeline::class)
             ->send($emails)
@@ -95,13 +96,13 @@ class EmailBlockService
             ->thenReturn();
     }
 
-    protected function getBlockRules(): array
+    protected function getBlockRules(ReceiverType $type): array
     {
-        return array_map(function ($rule) {
+        return array_map(function ($rule) use ($type) {
             $instance = app($rule);
 
             if ($instance instanceof BaseRule) {
-                $instance->setContext($this->context);
+                $instance->setContext($this->context, $type);
             }
 
             return $instance;

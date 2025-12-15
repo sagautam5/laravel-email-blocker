@@ -3,9 +3,9 @@
 use Sagautam5\EmailBlocker\Rules\BlockByDomainRule;
 use Sagautam5\EmailBlocker\Rules\BlockByEmailRule;
 use Sagautam5\EmailBlocker\Rules\BlockByEnvironmentRule;
+use Sagautam5\EmailBlocker\Rules\BlockByGlobalRule;
 use Sagautam5\EmailBlocker\Rules\BlockByMailableRule;
 use Sagautam5\EmailBlocker\Rules\BlockByTimeWindowRule;
-use Sagautam5\EmailBlocker\Rules\BlockByGlobalRule;
 
 return [
 
@@ -35,7 +35,7 @@ return [
             // 'to' => '18:00',
             // 'timezone' => 'Asia/Kathmandu',
         ],
-        'global_block' => false,
+        'global_block' => true,
         'blocked_domains' => [
             // 'example.com',
             // E.g. 'gmail.com',
