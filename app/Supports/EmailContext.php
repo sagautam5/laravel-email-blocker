@@ -2,7 +2,6 @@
 
 namespace Sagautam5\EmailBlocker\Supports;
 
-use Illuminate\Mail\Mailable;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 

@@ -2,7 +2,6 @@
 
 namespace Sagautam5\EmailBlocker\Services;
 
-use Illuminate\Mail\Mailable;
 use Illuminate\Pipeline\Pipeline;
 use Sagautam5\EmailBlocker\Rules\BaseRule;
 use Sagautam5\EmailBlocker\Supports\EmailContext;
@@ -64,7 +63,7 @@ class EmailBlockService
     protected function applyRulesOnBcc(): void
     {
         $emails = $this->context->getBccEmails();
-        
+
         $receivers = $this->getFilteredReceivers($emails);
 
         $this->applyBcc($receivers);

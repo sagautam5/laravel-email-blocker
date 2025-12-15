@@ -19,6 +19,6 @@ class BlockGloballlyRule extends BaseRule
 
     public function getReason(): string
     {
-        return 'Global Block';
+        return 'Email sending is globally disabled by configuration.';
     }
 }

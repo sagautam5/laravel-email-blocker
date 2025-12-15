@@ -23,6 +23,9 @@ class BlockByEnvironmentRule extends BaseRule
 
     public function getReason(): string
     {
-        return 'Evironment Block on '.app()->environment();
+        return sprintf(
+            'Email sending is blocked in the "%s" environment.',
+            app()->environment()
+        );
     }
 }

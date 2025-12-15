@@ -10,7 +10,7 @@ class BlockByMailableRule extends BaseRule
     {
         $mailables = $this->mailables();
 
-        if(in_array($this->context->mailable, $mailables)) {
+        if (in_array($this->context->mailable, $mailables)) {
             $this->handleLog($emails);
 
             return [];
@@ -21,7 +21,10 @@ class BlockByMailableRule extends BaseRule
 
     public function getReason(): string
     {
-        return 'Mailable Block';
+        return sprintf(
+            'The mailable "%s" is blocked from being sent.',
+            class_basename($this->context->mailable)
+        );
     }
 
     protected function mailables(): array

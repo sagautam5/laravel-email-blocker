@@ -25,7 +25,7 @@ class BlockByDomainRule extends BaseRule
 
     public function getReason(): string
     {
-        return 'Domain Block';
+        return 'Recipient email domain is blocked by configuration.';
     }
 
     protected function domains(): array
@@ -43,8 +43,7 @@ class BlockByDomainRule extends BaseRule
 
     protected function filterEmails($domains, $emails)
     {
-        $filtered = array_values(array_filter($emails, fn ($email) => ! isset($domains[substr(strrchr($email, '@'), 1)])
-        ));
+        $filtered = array_values(array_filter($emails, fn ($email) => ! isset($domains[substr(strrchr($email, '@'), 1)])));
 
         return [$filtered, array_diff($emails, $filtered)];
     }

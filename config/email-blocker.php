@@ -20,7 +20,7 @@ return [
         BlockByMailableRule::class,
         BlockByTimeWindowRule::class,
 
-        // User can add their own
+        // You can add your custom rule
         // App\Rules\CustomEmailBlockRule::class,
     ],
 
@@ -41,7 +41,7 @@ return [
 
         ],
         'blocked_mailables' => [
-            // SendWelcomeEmail::class,
+            SendWelcomeEmail::class,
             // E.g. 'App\Mail\WelcomeMail',
         ],
     ],

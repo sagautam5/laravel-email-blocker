@@ -26,6 +26,11 @@ class BlockByTimeWindowRule extends BaseRule
 
     public function getReason(): string
     {
-        return 'Time Window Block';
+        return sprintf(
+            'Email sending is blocked outside the allowed time window (%s–%s %s).',
+            config('email-blocker.settings.time_window.from'),
+            config('email-blocker.settings.time_window.to'),
+            config('email-blocker.settings.time_window.timezone')
+        );
     }
 }
