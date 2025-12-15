@@ -9,19 +9,33 @@
             "Sagautam5\\EmailBlocker\\Database\\Migrations\\": "database/migrations/"    
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Sagautam5\\EmailBlocker\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Sagar Gautam"
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
     "extra": {
         "class": "Sagautam5\\EmailBlocker",
         "laravel": {
             "providers": [
                 "Sagautam5\\EmailBlocker\\Providers\\EmailBlockServiceProvider"            
             ]
+        }
+    },
+    "require-dev": {
+        "pestphp/pest": "3.x-dev",
+        "pestphp/pest-plugin-laravel": "3.x-dev",
+        "orchestra/testbench": "10.x-dev"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
         }
     }
 }
