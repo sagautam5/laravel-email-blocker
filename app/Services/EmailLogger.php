@@ -19,7 +19,7 @@ class EmailLogger
             'from_email' => $blockedContext->context->getFromEmail(),
             'content' => $this->extractContent($message),
             'rule' => $blockedContext->rule,
-            'receiver_type' => $blockedContext->receiver_type,
+            'receiver_type' => $blockedContext->receiver_type
         ];
 
         BlockedEmail::create($data);

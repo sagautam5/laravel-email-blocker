@@ -10,7 +10,7 @@ class BlockedEmailContext
         public string $email,
         public string $reason,
         public string $rule,
-        public EmailContext $context,
-        public ReceiverType $receiver_type
+        public ?EmailContext $context,
+        public ?ReceiverType $receiver_type
     ) {}
 }
