@@ -28,7 +28,7 @@ class BlockByDomainRule extends BaseRule
         return 'Recipient email domain is blocked by configuration.';
     }
 
-    protected function domains(): array
+    public function domains(): array
     {
         $domains = config('email-blocker.settings.blocked_domains');
 
@@ -43,7 +43,7 @@ class BlockByDomainRule extends BaseRule
 
     protected function filterEmails($domains, $emails)
     {
-        $filtered = array_values(array_filter($emails, fn ($email) => ! isset($domains[substr(strrchr($email, '@'), 1)])));
+        $filtered = array_values(array_filter($emails, fn ($email) => ! isset($domains[substr(strrchr(strtolower($email), '@'), 1)])));
 
         return [$filtered, array_diff($emails, $filtered)];
     }

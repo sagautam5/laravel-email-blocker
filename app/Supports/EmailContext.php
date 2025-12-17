@@ -20,22 +20,34 @@ class EmailContext
     /**
      * Get email sender.
      */
-    public function getFromEmail(): string
+    public function getFromEmail(): ?string
     {
-        return once(fn () => $this->message->getFrom()[0]->getAddress());
+        return once(function () {
+            $from = $this->message->getFrom();
+
+            return $from[0]->getAddress() ?? null;
+        });
     }
 
-    public function getFromName(): string
+    /**
+     * Get email sender name.
+     */
+    public function getFromName(): ?string
     {
-        return once(fn () => $this->message->getFrom()[0]->getName());
+        return once(function () {
+            $from = $this->message->getFrom();
+
+            return $from[0]->getName() ?? null;
+        });
     }
+
 
     /**
      * Get email subject.
      */
-    public function getSubject(): string
+    public function getSubject(): ?string
     {
-        return once(fn () => (string) $this->message->getSubject());
+        return once(fn () => $this->message->getSubject());
     }
 
     /**

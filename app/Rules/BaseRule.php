@@ -10,9 +10,9 @@ use Sagautam5\EmailBlocker\Supports\EmailContext;
 
 abstract class BaseRule implements BlockEmailRule
 {
-    protected EmailContext $context;
+    public ?EmailContext $context = null;
 
-    protected ReceiverType $type;
+    public ?ReceiverType $type = null;
 
     public function setContext(EmailContext $context, ReceiverType $type): void
     {
