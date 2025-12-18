@@ -31,9 +31,9 @@ return [
             // 'staging',
         ],
         'time_window' => [
-            // 'from' => '09:00',
-            // 'to' => '18:00',
-            // 'timezone' => 'Asia/Kathmandu',
+            'from' => null, //'09:00',
+            'to' => null, // '18:00',
+            'timezone' => null //'Asia/Kathmandu',
         ],
         'global_block' => true,
         'blocked_domains' => [
