@@ -41,7 +41,6 @@ class EmailContext
         });
     }
 
-
     /**
      * Get email subject.
      */

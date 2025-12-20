@@ -11,7 +11,7 @@ use function Pest\Laravel\assertDatabaseHas;
 it('blocks all emails when global block is enabled and logs are disabled', function () {
     Config::set('email-blocker.settings.global_block', true);
     Config::set('email-blocker.log_enabled', false);
-    $rule = new BlockByGlobalRule();
+    $rule = new BlockByGlobalRule;
 
     $emails = [
         'test1@example.com',
@@ -26,9 +26,9 @@ it('blocks all emails when global block is enabled and logs are disabled', funct
 it('blocks all emails when global block is enabled and logs are enabled', function () {
     Config::set('email-blocker.settings.global_block', true);
     Config::set('email-blocker.log_enabled', true);
-    $rule = new BlockByGlobalRule();
+    $rule = new BlockByGlobalRule;
 
-    $context = (new Email())
+    $context = (new Email)
         ->from('test1@example.com')
         ->to('test1@example.com')
         ->subject('Test subject')
@@ -50,7 +50,7 @@ it('blocks all emails when global block is enabled and logs are enabled', functi
 it('allows emails to pass when global block is disabled', function () {
     Config::set('email-blocker.settings.global_block', false);
 
-    $rule = new BlockByGlobalRule();
+    $rule = new BlockByGlobalRule;
 
     $emails = ['allowed@example.com'];
 
@@ -60,7 +60,7 @@ it('allows emails to pass when global block is disabled', function () {
 });
 
 it('returns correct block reason', function () {
-    $rule = new BlockByGlobalRule();
+    $rule = new BlockByGlobalRule;
 
     expect($rule->getReason())
         ->toBe('Email sending is globally disabled by configuration.');

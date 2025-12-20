@@ -11,7 +11,7 @@ use function Pest\Laravel\assertDatabaseHas;
 it('allows all emails when blocked domains list is empty', function () {
     Config::set('email-blocker.settings.blocked_domains', []);
 
-    $rule = new BlockByDomainRule();
+    $rule = new BlockByDomainRule;
 
     $emails = [
         'alice@example.com',
@@ -27,7 +27,7 @@ it('blocks emails with domains in blocked list and logs disabled', function () {
     Config::set('email-blocker.settings.blocked_domains', ['example.com']);
     Config::set('email-blocker.log_enabled', false);
 
-    $rule = new BlockByDomainRule();
+    $rule = new BlockByDomainRule;
 
     $emails = [
         'alice@example.com',
@@ -43,9 +43,9 @@ it('blocks emails with domains in blocked list and logs enabled', function () {
     Config::set('email-blocker.settings.blocked_domains', ['example.com']);
     Config::set('email-blocker.log_enabled', true);
 
-    $rule = new BlockByDomainRule();
+    $rule = new BlockByDomainRule;
 
-    $context = (new Email())
+    $context = (new Email)
         ->from('system@example.com')
         ->to('alice@example.com')
         ->subject('Test subject')
@@ -71,9 +71,9 @@ it('blocks all emails if all domains are blocked', function () {
     Config::set('email-blocker.settings.blocked_domains', ['example.com', 'test.com']);
     Config::set('email-blocker.log_enabled', true);
 
-    $rule = new BlockByDomainRule();
+    $rule = new BlockByDomainRule;
 
-    $context = (new Email())
+    $context = (new Email)
         ->from('system@example.com')
         ->to('alice@example.com')
         ->subject('Test subject')
@@ -95,7 +95,7 @@ it('blocks all emails if all domains are blocked', function () {
 });
 
 it('returns correct block reason', function () {
-    $rule = new BlockByDomainRule();
+    $rule = new BlockByDomainRule;
 
     expect($rule->getReason())->toBe('Recipient email domain is blocked by configuration.');
 });
@@ -104,8 +104,8 @@ it('blocks emails regardless of domain case', function () {
     Config::set('email-blocker.settings.blocked_domains', ['EXAMPLE.COM']);
     Config::set('email-blocker.log_enabled', false);
 
-    $rule = new BlockByDomainRule();
-    
+    $rule = new BlockByDomainRule;
+
     $emails = [
         'alice@example.com',
         'bob@EXAMPLE.com',

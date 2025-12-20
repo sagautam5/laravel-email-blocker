@@ -3,7 +3,6 @@
 namespace Sagautam5\EmailBlocker\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Sagautam5\EmailBlocker\Services\EmailLogger;
 use Sagautam5\EmailBlocker\Supports\BlockedEmailContext;
 
 /**
@@ -15,6 +14,6 @@ class Logger extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return EmailLogger::class;
+        return 'email-blocker.logger';
     }
 }

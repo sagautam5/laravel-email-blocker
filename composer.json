@@ -19,7 +19,7 @@
             "name": "Sagar Gautam"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "extra": {
         "class": "Sagautam5\\EmailBlocker",
         "laravel": {
@@ -29,9 +29,10 @@
         }
     },
     "require-dev": {
-        "pestphp/pest": "3.x-dev",
-        "pestphp/pest-plugin-laravel": "3.x-dev",
-        "orchestra/testbench": "10.x-dev"
+        "pestphp/pest": "^3.8",
+        "pestphp/pest-plugin-laravel": "^3.2",
+        "laravel/pint": "^1.26",
+        "orchestra/testbench": "^10.8"
     },
     "config": {
         "allow-plugins": {

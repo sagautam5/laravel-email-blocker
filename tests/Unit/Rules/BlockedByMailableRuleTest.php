@@ -19,9 +19,9 @@ class BlockedTestMailable {}
 it('allows all emails when blocked mailables list is empty', function () {
     Config::set('email-blocker.settings.blocked_mailables', []);
 
-    $rule = new BlockByMailableRule();
+    $rule = new BlockByMailableRule;
 
-    $context = (new Email())
+    $context = (new Email)
         ->from('system@example.com')
         ->to('alice@example.com')
         ->subject('Test')
@@ -47,9 +47,9 @@ it('allows emails when mailable is not blocked', function () {
         BlockedTestMailable::class,
     ]);
 
-    $rule = new BlockByMailableRule();
+    $rule = new BlockByMailableRule;
 
-    $context = (new Email())
+    $context = (new Email)
         ->from('system@example.com')
         ->to('alice@example.com')
         ->subject('Test')
@@ -77,9 +77,9 @@ it('blocks all emails when mailable is blocked and logging disabled', function (
 
     Config::set('email-blocker.log_enabled', false);
 
-    $rule = new BlockByMailableRule();
+    $rule = new BlockByMailableRule;
 
-    $context = (new Email())
+    $context = (new Email)
         ->from('system@example.com')
         ->to('alice@example.com')
         ->subject('Blocked mail')
@@ -107,9 +107,9 @@ it('blocks all emails when mailable is blocked and logs enabled', function () {
 
     Config::set('email-blocker.log_enabled', true);
 
-    $rule = new BlockByMailableRule();
+    $rule = new BlockByMailableRule;
 
-    $context = (new Email())
+    $context = (new Email)
         ->from('system@example.com')
         ->to('alice@example.com')
         ->subject('Blocked mail')
@@ -143,9 +143,9 @@ it('returns correct block reason', function () {
         BlockedTestMailable::class,
     ]);
 
-    $rule = new BlockByMailableRule();
+    $rule = new BlockByMailableRule;
 
-    $context = (new Email())
+    $context = (new Email)
         ->from('system@example.com')
         ->to('alice@example.com')
         ->subject('Blocked mail')

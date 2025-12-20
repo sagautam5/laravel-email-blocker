@@ -3,12 +3,14 @@
 namespace Sagautam5\EmailBlocker\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Sagautam5\EmailBlocker\Services\EmailLogger;
 
 class EmailBlockServiceProvider extends ServiceProvider
 {
     public function register()
     {
         $this->app->register(EmailEventServiceProvider::class);
+        $this->app->singleton('email-blocker.logger', EmailLogger::class);
     }
 
     public function boot()

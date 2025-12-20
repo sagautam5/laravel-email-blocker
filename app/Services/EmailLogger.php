@@ -4,6 +4,7 @@ namespace Sagautam5\EmailBlocker\Services;
 
 use Sagautam5\EmailBlocker\Models\BlockedEmail;
 use Sagautam5\EmailBlocker\Supports\BlockedEmailContext;
+use Symfony\Component\Mime\Email;
 
 class EmailLogger
 {
@@ -12,6 +13,7 @@ class EmailLogger
         $message = $blockedContext->context->message;
 
         $data = [
+            'mailable' => $blockedContext->context->mailable ?? null,
             'email' => $blockedContext->email,
             'reason' => $blockedContext->reason,
             'subject' => $blockedContext->context->getSubject(),
@@ -25,13 +27,11 @@ class EmailLogger
         BlockedEmail::create($data);
     }
 
-    private function extractContent($message): ?string
+    private function extractContent(?Email $message): ?string
     {
-        if ($message === null) {
-            return null;
-        }
+        $content = $message?->getHtmlBody()
+            ?? $message?->getTextBody();
 
-        return $message->getHtmlBody()
-            ?? $message->getTextBody();
+        return mb_substr($content, 0, 10000);
     }
 }

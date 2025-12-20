@@ -12,7 +12,7 @@ it('blocks all emails when current environment is blocked and logs are disabled'
     Config::set('email-blocker.settings.blocked_environments', ['testing']);
     Config::set('email-blocker.log_enabled', false);
 
-    $rule = new BlockByEnvironmentRule();
+    $rule = new BlockByEnvironmentRule;
 
     $emails = [
         'test1@example.com',
@@ -28,9 +28,9 @@ it('blocks all emails when current environment is blocked and logs are enabled',
     Config::set('email-blocker.settings.blocked_environments', ['testing']);
     Config::set('email-blocker.log_enabled', true);
 
-    $rule = new BlockByEnvironmentRule();
+    $rule = new BlockByEnvironmentRule;
 
-    $context = (new Email())
+    $context = (new Email)
         ->from('system@example.com')
         ->to('test@example.com')
         ->subject('Test subject')
@@ -55,7 +55,7 @@ it('blocks all emails when current environment is blocked and logs are enabled',
 it('allows emails to pass when current environment is not blocked', function () {
     Config::set('email-blocker.settings.blocked_environments', ['production']);
 
-    $rule = new BlockByEnvironmentRule();
+    $rule = new BlockByEnvironmentRule;
 
     $emails = ['allowed@example.com'];
 
@@ -67,7 +67,7 @@ it('allows emails to pass when current environment is not blocked', function () 
 it('allows emails to pass when blocked environments list is empty', function () {
     Config::set('email-blocker.settings.blocked_environments', []);
 
-    $rule = new BlockByEnvironmentRule();
+    $rule = new BlockByEnvironmentRule;
 
     $emails = ['allowed@example.com'];
 
@@ -77,7 +77,7 @@ it('allows emails to pass when blocked environments list is empty', function () 
 });
 
 it('returns correct block reason with environment name', function () {
-    $rule = new BlockByEnvironmentRule();
+    $rule = new BlockByEnvironmentRule;
 
     expect($rule->getReason())
         ->toBe(

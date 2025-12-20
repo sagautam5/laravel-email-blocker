@@ -24,7 +24,7 @@ it('allows all emails when time window is not configured', function () {
         'timezone' => null,
     ]);
 
-    $rule = new BlockByTimeWindowRule();
+    $rule = new BlockByTimeWindowRule;
 
     $emails = [
         'alice@example.com',
@@ -43,7 +43,7 @@ it('allows emails when current time is outside the blocked time window', functio
         'timezone' => 'UTC',
     ]);
 
-    $rule = new BlockByTimeWindowRule();
+    $rule = new BlockByTimeWindowRule;
 
     $emails = [
         'alice@example.com',
@@ -64,7 +64,7 @@ it('blocks all emails when current time is within the blocked time window and lo
 
     Config::set('email-blocker.log_enabled', false);
 
-    $rule = new BlockByTimeWindowRule();
+    $rule = new BlockByTimeWindowRule;
 
     $emails = [
         'alice@example.com',
@@ -85,9 +85,9 @@ it('blocks all emails when current time is within the blocked time window and lo
 
     Config::set('email-blocker.log_enabled', true);
 
-    $rule = new BlockByTimeWindowRule();
+    $rule = new BlockByTimeWindowRule;
 
-    $context = (new Email())
+    $context = (new Email)
         ->from('system@example.com')
         ->to('alice@example.com')
         ->subject('Test subject')
@@ -122,7 +122,7 @@ it('respects configured timezone when evaluating time window', function () {
 
     Config::set('email-blocker.log_enabled', false);
 
-    $rule = new BlockByTimeWindowRule();
+    $rule = new BlockByTimeWindowRule;
 
     $emails = ['alice@example.com'];
 
@@ -138,7 +138,7 @@ it('returns correct block reason', function () {
         'timezone' => 'UTC',
     ]);
 
-    $rule = new BlockByTimeWindowRule();
+    $rule = new BlockByTimeWindowRule;
 
     expect($rule->getReason())->toBe(
         'Email sending is blocked outside the allowed time window (09:00–18:00 UTC).'

@@ -9,7 +9,7 @@ use Sagautam5\EmailBlocker\Rules\BlockByTimeWindowRule;
 
 return [
 
-    'log_enabled' => true,
+    'log_enabled' => false,
 
     'log_table' => 'blocked_emails',
 
@@ -31,9 +31,9 @@ return [
             // 'staging',
         ],
         'time_window' => [
-            'from' => null, //'09:00',
+            'from' => null, // '09:00',
             'to' => null, // '18:00',
-            'timezone' => null //'Asia/Kathmandu',
+            'timezone' => null, // 'Asia/Kathmandu',
         ],
         'global_block' => true,
         'blocked_domains' => [
