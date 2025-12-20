@@ -9,6 +9,7 @@ use Sagautam5\EmailBlocker\Rules\BlockByTimeWindowRule;
 
 return [
 
+    'block_enabled' => env('EMAIL_BLOCK_ENABLED', true),
     'log_enabled' => false,
 
     'log_table' => 'blocked_emails',
@@ -46,9 +47,7 @@ return [
             // E.g. 'App\Mail\WelcomeMail',
         ],
         'blocked_emails' => [
-            // 'user@ample.com',
             // E.g. 'user@ample.com',
-            'sagautam5@gmail.com',
         ],
     ],
 ];
