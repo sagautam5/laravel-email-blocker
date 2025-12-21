@@ -2,7 +2,6 @@
 
 namespace Sagautam5\EmailBlocker\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Sagautam5\EmailBlocker\Enums\ReceiverType;
@@ -26,13 +25,6 @@ use Sagautam5\EmailBlocker\Enums\ReceiverType;
  */
 class BlockedEmail extends Model
 {
-    use HasFactory;
-
-    /**
-     * The table associated with the model.
-     */
-    protected $table = 'blocked_emails';
-
     /**
      * The attributes that are mass assignable.
      *
@@ -76,6 +68,11 @@ class BlockedEmail extends Model
     public function scopeForEmail($query, string $email)
     {
         return $query->where('email', $email);
+    }
+
+    public function getTable()
+    {
+        return config('email-blocker.log_table', 'blocked_emails');
     }
 
     /**
