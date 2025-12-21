@@ -4,6 +4,7 @@ namespace Sagautam5\EmailBlocker\Rules;
 
 use Carbon\Carbon;
 use Closure;
+use Sagautam5\EmailBlocker\Abstracts\BaseRule;
 
 class BlockByTimeWindowRule extends BaseRule
 {

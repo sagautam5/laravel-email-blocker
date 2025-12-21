@@ -1,6 +1,6 @@
 <?php
 
-namespace Sagautam5\EmailBlocker\Rules;
+namespace Sagautam5\EmailBlocker\Abstracts;
 
 use Sagautam5\EmailBlocker\Contracts\BlockEmailRule;
 use Sagautam5\EmailBlocker\Enums\ReceiverType;

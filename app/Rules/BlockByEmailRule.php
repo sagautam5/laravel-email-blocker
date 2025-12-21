@@ -3,6 +3,7 @@
 namespace Sagautam5\EmailBlocker\Rules;
 
 use Closure;
+use Sagautam5\EmailBlocker\Abstracts\BaseRule;
 use Sagautam5\EmailBlocker\Contracts\BlockEmailRule;
 
 class BlockByEmailRule extends BaseRule implements BlockEmailRule
