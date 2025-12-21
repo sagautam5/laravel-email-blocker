@@ -2,6 +2,7 @@
 
 namespace Sagautam5\EmailBlocker\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Sagautam5\EmailBlocker\Enums\ReceiverType;
@@ -25,6 +26,8 @@ use Sagautam5\EmailBlocker\Enums\ReceiverType;
  */
 class BlockedEmail extends Model
 {
+    use HasFactory;
+    
     /**
      * The attributes that are mass assignable.
      *

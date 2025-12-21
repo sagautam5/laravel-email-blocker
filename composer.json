@@ -11,7 +11,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Sagautam5\\EmailBlocker\\Tests\\": "tests/"
+            "Sagautam5\\EmailBlocker\\Tests\\": "tests/",
+            "Sagautam5\\EmailBlocker\\Database\\Factories\\": "database/factories/"
         }
     },
     "authors": [

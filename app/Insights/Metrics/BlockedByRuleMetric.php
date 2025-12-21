@@ -24,6 +24,7 @@ class BlockedByRuleMetric extends AbstractMetric
     protected function getQuery(): Builder
     {
         return BlockedEmail::query()
+            ->whereNotNull('rule')
             ->select('rule', DB::raw('COUNT(*) as total'))
             ->groupBy('rule')
             ->orderByDesc('total');
