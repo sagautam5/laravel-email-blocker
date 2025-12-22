@@ -1,9 +1,9 @@
-<?php 
+<?php
 
 namespace Sagautam5\EmailBlocker\Abstracts;
 
-use Sagautam5\EmailBlocker\Contracts\Metric;
 use Illuminate\Database\Eloquent\Builder;
+use Sagautam5\EmailBlocker\Contracts\Metric;
 
 abstract class AbstractMetric implements Metric
 {
@@ -19,11 +19,11 @@ abstract class AbstractMetric implements Metric
 
     protected function applyDateFilters(Builder $query, array $filters): Builder
     {
-        if (!empty($filters['start_date'])) {
+        if (! empty($filters['start_date'])) {
             $query->where('blocked_at', '>=', $filters['start_date']);
         }
 
-        if (!empty($filters['end_date'])) {
+        if (! empty($filters['end_date'])) {
             $query->where('blocked_at', '<=', $filters['end_date']);
         }
 

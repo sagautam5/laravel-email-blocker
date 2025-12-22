@@ -12,6 +12,7 @@ class TopMailableRulePairsMetric extends AbstractMetric
     {
         return 'Top Mailable Rule Pairs';
     }
+
     public function calculate(array $filters = []): array
     {
         return $this->applyDateFilters($this->getQuery(), $filters)
@@ -19,8 +20,8 @@ class TopMailableRulePairsMetric extends AbstractMetric
             ->get()
             ->map(fn ($row) => [
                 'mailable' => $row->mailable,
-                'rule'     => $row->rule,
-                'count'    => (int) $row->total,
+                'rule' => $row->rule,
+                'count' => (int) $row->total,
             ])
             ->toArray();
     }

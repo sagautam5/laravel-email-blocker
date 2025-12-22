@@ -15,7 +15,7 @@ it('returns blocked emails grouped by date', function () {
         'blocked_at' => now()->subDays(1),
     ]);
 
-    $metric = new BlockedOverTimeMetric();
+    $metric = new BlockedOverTimeMetric;
 
     $result = $metric->calculate();
 
@@ -30,7 +30,7 @@ it('aggregates multiple blocked emails on the same day', function () {
         'blocked_at' => now()->subDay(),
     ]);
 
-    $metric = new BlockedOverTimeMetric();
+    $metric = new BlockedOverTimeMetric;
 
     $result = $metric->calculate();
 
@@ -47,7 +47,7 @@ it('orders results by date ascending', function () {
         'blocked_at' => now()->subDay(),
     ]);
 
-    $metric = new BlockedOverTimeMetric();
+    $metric = new BlockedOverTimeMetric;
 
     $result = $metric->calculate();
 
@@ -61,7 +61,7 @@ it('orders results by date ascending', function () {
 });
 
 it('returns an empty array when no blocked emails exist', function () {
-    $metric = new BlockedOverTimeMetric();
+    $metric = new BlockedOverTimeMetric;
 
     $result = $metric->calculate();
 
@@ -77,7 +77,7 @@ it('applies start_date filter correctly', function () {
         'blocked_at' => now()->subDays(2),
     ]);
 
-    $metric = new BlockedOverTimeMetric();
+    $metric = new BlockedOverTimeMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(5)->toDateTimeString(),
@@ -98,7 +98,7 @@ it('applies end_date filter correctly', function () {
         'blocked_at' => now()->subDay(),
     ]);
 
-    $metric = new BlockedOverTimeMetric();
+    $metric = new BlockedOverTimeMetric;
 
     $result = $metric->calculate([
         'end_date' => now()->subDays(2)->toDateTimeString(),
@@ -123,11 +123,11 @@ it('applies both start_date and end_date filters correctly', function () {
         'blocked_at' => now()->subDay(),
     ]);
 
-    $metric = new BlockedOverTimeMetric();
+    $metric = new BlockedOverTimeMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(6)->toDateTimeString(),
-        'end_date'   => now()->subDays(2)->toDateTimeString(),
+        'end_date' => now()->subDays(2)->toDateTimeString(),
     ]);
 
     expect($result)->toHaveCount(1)
@@ -145,11 +145,11 @@ it('handles multiple days within date range correctly', function () {
         'blocked_at' => now()->subDays(2),
     ]);
 
-    $metric = new BlockedOverTimeMetric();
+    $metric = new BlockedOverTimeMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(4)->toDateTimeString(),
-        'end_date'   => now()->subDays(1)->toDateTimeString(),
+        'end_date' => now()->subDays(1)->toDateTimeString(),
     ]);
 
     expect($result)->toHaveCount(2)
@@ -170,7 +170,7 @@ it('respects manual limit when applied', function () {
         'blocked_at' => now()->subDay(),
     ]);
 
-    $metric = new BlockedOverTimeMetric();
+    $metric = new BlockedOverTimeMetric;
 
     $result = collect($metric->calculate())
         ->take(2)

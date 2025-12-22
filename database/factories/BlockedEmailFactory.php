@@ -12,26 +12,26 @@ use Sagautam5\EmailBlocker\Models\BlockedEmail;
 class BlockedEmailFactory extends Factory
 {
     protected $model = BlockedEmail::class;
+
     /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
      */
-
     public function definition(): array
     {
         return [
-            'mailable'   => $this->faker->randomElement([
+            'mailable' => $this->faker->randomElement([
                 'App\\Mail\\TestMail',
                 'App\\Mail\\AnotherMail',
                 'App\\Mail\\NotificationMail',
             ]),
-            'email'      => $this->faker->safeEmail(),
-            'subject'    => $this->faker->sentence(),
-            'from_name'  => $this->faker->name(),
+            'email' => $this->faker->safeEmail(),
+            'subject' => $this->faker->sentence(),
+            'from_name' => $this->faker->name(),
             'from_email' => $this->faker->safeEmail(),
-            'content'    => $this->faker->paragraph(),
-            'rule'       => 'TestRule',
+            'content' => $this->faker->paragraph(),
+            'rule' => 'TestRule',
             'receiver_type' => $this->faker->randomElement([
                 ReceiverType::CC,
                 ReceiverType::BCC,

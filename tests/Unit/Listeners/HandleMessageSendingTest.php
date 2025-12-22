@@ -16,10 +16,10 @@ afterEach(function () {
 it('returns original message when email blocker is enabled', function () {
     config()->set('email-blocker.block_enabled', true);
 
-    $email = new Email();
+    $email = new Email;
     $event = new MessageSending($email, []);
 
-    $listener = new HandleMessageSending();
+    $listener = new HandleMessageSending;
 
     $result = $listener->handle($event);
 
@@ -27,10 +27,10 @@ it('returns original message when email blocker is enabled', function () {
 });
 
 it('applies email blocking rules when blocker is disabled and no mailable exists', function () {
-    $email = new Email();
+    $email = new Email;
     $event = new MessageSending($email, []);
 
-    $service = Mockery::mock('overload:' . EmailBlockService::class);
+    $service = Mockery::mock('overload:'.EmailBlockService::class);
     $service
         ->shouldReceive('__construct')
         ->with($email, null)
@@ -41,7 +41,7 @@ it('applies email blocking rules when blocker is disabled and no mailable exists
         ->once()
         ->andReturn($email);
 
-    $listener = new HandleMessageSending();
+    $listener = new HandleMessageSending;
 
     $result = $listener->handle($event);
 
@@ -49,14 +49,14 @@ it('applies email blocking rules when blocker is disabled and no mailable exists
 });
 
 it('passes mailable to EmailBlockService when available', function () {
-    $email = new Email();
-    $mailable = new stdClass();
+    $email = new Email;
+    $mailable = new stdClass;
 
     $event = new MessageSending($email, [
         '__laravel_mailable' => $mailable,
     ]);
 
-    $service = Mockery::mock('overload:' . EmailBlockService::class);
+    $service = Mockery::mock('overload:'.EmailBlockService::class);
     $service
         ->shouldReceive('__construct')
         ->with($email, $mailable)
@@ -67,7 +67,7 @@ it('passes mailable to EmailBlockService when available', function () {
         ->once()
         ->andReturn(false);
 
-    $listener = new HandleMessageSending();
+    $listener = new HandleMessageSending;
 
     $result = $listener->handle($event);
 
@@ -75,16 +75,16 @@ it('passes mailable to EmailBlockService when available', function () {
 });
 
 it('returns either Email or boolean from applyRules', function () {
-    $email = new Email();
+    $email = new Email;
     $event = new MessageSending($email, []);
 
-    $service = Mockery::mock('overload:' . EmailBlockService::class);
+    $service = Mockery::mock('overload:'.EmailBlockService::class);
     $service
         ->shouldReceive('applyRules')
         ->once()
         ->andReturn(true);
 
-    $listener = new HandleMessageSending();
+    $listener = new HandleMessageSending;
 
     $result = $listener->handle($event);
 

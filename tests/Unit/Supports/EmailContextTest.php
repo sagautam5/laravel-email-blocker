@@ -5,7 +5,7 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
 beforeEach(function () {
-    $this->email = new Email();
+    $this->email = new Email;
     $this->email->from(new Address('from@example.com', 'Sender Name'));
     $this->email->to('to@example.com');
     $this->email->cc('cc@example.com');
@@ -37,7 +37,7 @@ it('returns the body with preference for HTML', function () {
 });
 
 it('falls back to text body if HTML is not available', function () {
-    $email = new Email();
+    $email = new Email;
     $email->text('Just text body');
     $context = new EmailContext($email);
     expect($context->getBody())->toBe('Just text body');
@@ -59,7 +59,7 @@ it('returns all "bcc" emails', function () {
 });
 
 it('handles empty recipients gracefully', function () {
-    $email = new Email();
+    $email = new Email;
     $context = new EmailContext($email);
 
     expect($context->getToEmails())->toBe([])

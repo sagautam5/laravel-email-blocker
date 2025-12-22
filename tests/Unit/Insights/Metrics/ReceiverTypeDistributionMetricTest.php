@@ -19,7 +19,7 @@ it('returns blocked emails grouped by receiver_type', function () {
         'receiver_type' => 'cc',
     ]);
 
-    $metric = new ReceiverTypeDistributionMetric();
+    $metric = new ReceiverTypeDistributionMetric;
 
     $result = $metric->calculate();
 
@@ -45,7 +45,7 @@ it('orders results by total in descending order', function () {
         'receiver_type' => 'to',
     ]);
 
-    $metric = new ReceiverTypeDistributionMetric();
+    $metric = new ReceiverTypeDistributionMetric;
 
     $result = $metric->calculate();
 
@@ -56,7 +56,7 @@ it('orders results by total in descending order', function () {
 });
 
 it('returns an empty array when no blocked emails exist', function () {
-    $metric = new ReceiverTypeDistributionMetric();
+    $metric = new ReceiverTypeDistributionMetric;
 
     $result = $metric->calculate();
 
@@ -74,7 +74,7 @@ it('applies start_date filter correctly', function () {
         'blocked_at' => now()->subDays(2),
     ]);
 
-    $metric = new ReceiverTypeDistributionMetric();
+    $metric = new ReceiverTypeDistributionMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(5)->toDateTimeString(),
@@ -96,7 +96,7 @@ it('applies end_date filter correctly', function () {
         'blocked_at' => now()->subDay(),
     ]);
 
-    $metric = new ReceiverTypeDistributionMetric();
+    $metric = new ReceiverTypeDistributionMetric;
 
     $result = $metric->calculate([
         'end_date' => now()->subDays(2)->toDateTimeString(),
@@ -123,11 +123,11 @@ it('applies both start_date and end_date filters correctly', function () {
         'blocked_at' => now()->subDay(),
     ]);
 
-    $metric = new ReceiverTypeDistributionMetric();
+    $metric = new ReceiverTypeDistributionMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(6)->toDateTimeString(),
-        'end_date'   => now()->subDays(2)->toDateTimeString(),
+        'end_date' => now()->subDays(2)->toDateTimeString(),
     ]);
 
     expect($result)->toHaveCount(1)
@@ -146,11 +146,11 @@ it('aggregates totals correctly for multiple receiver types in range', function 
         'blocked_at' => now()->subDays(2),
     ]);
 
-    $metric = new ReceiverTypeDistributionMetric();
+    $metric = new ReceiverTypeDistributionMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(3)->toDateTimeString(),
-        'end_date'   => now()->toDateTimeString(),
+        'end_date' => now()->toDateTimeString(),
     ]);
 
     expect($result)->toHaveCount(2)
@@ -173,7 +173,7 @@ it('respects manual limit when applied', function () {
         'receiver_type' => 'bcc',
     ]);
 
-    $metric = new ReceiverTypeDistributionMetric();
+    $metric = new ReceiverTypeDistributionMetric;
 
     $result = collect($metric->calculate())
         ->take(2)

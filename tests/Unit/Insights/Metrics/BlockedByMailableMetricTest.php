@@ -19,7 +19,7 @@ it('returns blocked emails grouped by mailable', function () {
         'mailable' => 'App\Mail\AnotherMail',
     ]);
 
-    $metric = new BlockedByMailableMetric();
+    $metric = new BlockedByMailableMetric;
 
     $result = $metric->calculate();
 
@@ -45,7 +45,7 @@ it('excludes records with null mailable', function () {
         'mailable' => 'App\Mail\TestMail',
     ]);
 
-    $metric = new BlockedByMailableMetric();
+    $metric = new BlockedByMailableMetric;
 
     $result = $metric->calculate();
 
@@ -63,7 +63,7 @@ it('orders results by total in descending order', function () {
         'mailable' => 'App\Mail\LowCountMail',
     ]);
 
-    $metric = new BlockedByMailableMetric();
+    $metric = new BlockedByMailableMetric;
 
     $result = $metric->calculate();
 
@@ -74,7 +74,7 @@ it('orders results by total in descending order', function () {
 });
 
 it('returns an empty array when no blocked emails exist', function () {
-    $metric = new BlockedByMailableMetric();
+    $metric = new BlockedByMailableMetric;
 
     $result = $metric->calculate();
 
@@ -92,7 +92,7 @@ it('applies start_date filter correctly', function () {
         'blocked_at' => now()->subDay(),
     ]);
 
-    $metric = new BlockedByMailableMetric();
+    $metric = new BlockedByMailableMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(5)->toDateTimeString(),
@@ -113,7 +113,7 @@ it('applies end_date filter correctly', function () {
         'blocked_at' => now()->subDay(),
     ]);
 
-    $metric = new BlockedByMailableMetric();
+    $metric = new BlockedByMailableMetric;
 
     $result = $metric->calculate([
         'end_date' => now()->subDays(5)->toDateTimeString(),
@@ -139,11 +139,11 @@ it('applies both start_date and end_date filters correctly', function () {
         'blocked_at' => now(),
     ]);
 
-    $metric = new BlockedByMailableMetric();
+    $metric = new BlockedByMailableMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(5)->toDateTimeString(),
-        'end_date'   => now()->subDays(1)->toDateTimeString(),
+        'end_date' => now()->subDays(1)->toDateTimeString(),
     ]);
 
     expect($result)->toHaveCount(1)
@@ -164,7 +164,7 @@ it('respects limit on results when applied', function () {
         'mailable' => 'App\Mail\LowCountMail',
     ]);
 
-    $metric = new BlockedByMailableMetric();
+    $metric = new BlockedByMailableMetric;
 
     $result = collect($metric->calculate())->take(2)->toArray(); // applying limit manually
 
@@ -202,11 +202,11 @@ it('applies multiple mailables with overlapping date filters correctly', functio
         'blocked_at' => now()->subDays(2),
     ]);
 
-    $metric = new \Sagautam5\EmailBlocker\Insights\Metrics\BlockedByMailableMetric();
+    $metric = new \Sagautam5\EmailBlocker\Insights\Metrics\BlockedByMailableMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(5)->toDateTimeString(),
-        'end_date'   => now()->subDays(1)->toDateTimeString(),
+        'end_date' => now()->subDays(1)->toDateTimeString(),
     ]);
 
     // Only RecentMail1 and RecentMail2 should match
@@ -232,11 +232,11 @@ it('aggregates totals correctly for multiple mailables in range', function () {
         'blocked_at' => now()->subDays(1),
     ]);
 
-    $metric = new \Sagautam5\EmailBlocker\Insights\Metrics\BlockedByMailableMetric();
+    $metric = new \Sagautam5\EmailBlocker\Insights\Metrics\BlockedByMailableMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(3)->toDateTimeString(),
-        'end_date'   => now()->toDateTimeString(),
+        'end_date' => now()->toDateTimeString(),
     ]);
 
     // Expect aggregation and descending order
@@ -260,11 +260,11 @@ it('handles mixed null and valid mailables within date range', function () {
         'blocked_at' => now()->subDays(1),
     ]);
 
-    $metric = new \Sagautam5\EmailBlocker\Insights\Metrics\BlockedByMailableMetric();
+    $metric = new \Sagautam5\EmailBlocker\Insights\Metrics\BlockedByMailableMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(2)->toDateTimeString(),
-        'end_date'   => now()->toDateTimeString(),
+        'end_date' => now()->toDateTimeString(),
     ]);
 
     expect($result)->toHaveCount(1)

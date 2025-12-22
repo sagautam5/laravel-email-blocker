@@ -2,9 +2,9 @@
 
 namespace Sagautam5\EmailBlocker\Tests;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Sagautam5\EmailBlocker\Providers\EmailBlockServiceProvider;
-use Illuminate\Database\Eloquent\Factories\Factory;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -16,6 +16,7 @@ abstract class TestCase extends BaseTestCase
             fn (string $modelName) => 'Sagautam5\\EmailBlocker\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
+
     protected function getPackageProviders($app): array
     {
         return [

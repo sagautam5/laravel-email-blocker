@@ -9,7 +9,7 @@ uses(RefreshDatabase::class);
 it('returns total count of blocked emails', function () {
     BlockedEmail::factory()->count(3)->create();
 
-    $metric = new CountBlockedEmailsMetric();
+    $metric = new CountBlockedEmailsMetric;
 
     $result = $metric->calculate();
 
@@ -20,7 +20,7 @@ it('returns total count of blocked emails', function () {
 });
 
 it('returns zero when no blocked emails exist', function () {
-    $metric = new CountBlockedEmailsMetric();
+    $metric = new CountBlockedEmailsMetric;
 
     $result = $metric->calculate();
 
@@ -38,7 +38,7 @@ it('applies start_date filter correctly', function () {
         'blocked_at' => now()->subDays(2),
     ]);
 
-    $metric = new CountBlockedEmailsMetric();
+    $metric = new CountBlockedEmailsMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(5)->toDateTimeString(),
@@ -56,7 +56,7 @@ it('applies end_date filter correctly', function () {
         'blocked_at' => now()->subDay(),
     ]);
 
-    $metric = new CountBlockedEmailsMetric();
+    $metric = new CountBlockedEmailsMetric;
 
     $result = $metric->calculate([
         'end_date' => now()->subDays(2)->toDateTimeString(),
@@ -78,11 +78,11 @@ it('applies both start_date and end_date filters correctly', function () {
         'blocked_at' => now()->subDay(),
     ]);
 
-    $metric = new CountBlockedEmailsMetric();
+    $metric = new CountBlockedEmailsMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(6)->toDateTimeString(),
-        'end_date'   => now()->subDays(2)->toDateTimeString(),
+        'end_date' => now()->subDays(2)->toDateTimeString(),
     ]);
 
     expect($result['count'])->toBe(1);
@@ -95,7 +95,7 @@ it('includes records exactly on start_date boundary', function () {
         'blocked_at' => $boundary,
     ]);
 
-    $metric = new CountBlockedEmailsMetric();
+    $metric = new CountBlockedEmailsMetric;
 
     $result = $metric->calculate([
         'start_date' => $boundary->toDateTimeString(),
@@ -111,7 +111,7 @@ it('includes records exactly on end_date boundary', function () {
         'blocked_at' => $boundary,
     ]);
 
-    $metric = new CountBlockedEmailsMetric();
+    $metric = new CountBlockedEmailsMetric;
 
     $result = $metric->calculate([
         'end_date' => $boundary->toDateTimeString(),
@@ -131,7 +131,7 @@ it('ignores unrelated columns when counting', function () {
         'mailable' => 'App\\Mail\\TestMail',
     ]);
 
-    $metric = new CountBlockedEmailsMetric();
+    $metric = new CountBlockedEmailsMetric;
 
     $result = $metric->calculate();
 
@@ -141,7 +141,7 @@ it('ignores unrelated columns when counting', function () {
 it('always returns a stable response shape', function () {
     BlockedEmail::factory()->count(1)->create();
 
-    $metric = new CountBlockedEmailsMetric();
+    $metric = new CountBlockedEmailsMetric;
 
     $result = $metric->calculate();
 

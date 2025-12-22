@@ -19,7 +19,7 @@ it('returns blocked emails grouped by recipient email', function () {
         'email' => 'user2@example.com',
     ]);
 
-    $metric = new TopBlockedRecipientMetric();
+    $metric = new TopBlockedRecipientMetric;
 
     $result = $metric->calculate();
 
@@ -45,7 +45,7 @@ it('orders results by total in descending order', function () {
         'email' => 'low@example.com',
     ]);
 
-    $metric = new TopBlockedRecipientMetric();
+    $metric = new TopBlockedRecipientMetric;
 
     $result = $metric->calculate();
 
@@ -60,7 +60,7 @@ it('respects the default limit of 10', function () {
         fn ($sequence) => ['email' => "user{$sequence->index}@example.com"]
     )->create();
 
-    $metric = new TopBlockedRecipientMetric();
+    $metric = new TopBlockedRecipientMetric;
 
     $result = $metric->calculate();
 
@@ -72,7 +72,7 @@ it('respects custom limit when provided', function () {
         fn ($sequence) => ['email' => "user{$sequence->index}@example.com"]
     )->create();
 
-    $metric = new TopBlockedRecipientMetric();
+    $metric = new TopBlockedRecipientMetric;
 
     $result = $metric->calculate([
         'limit' => 3,
@@ -82,7 +82,7 @@ it('respects custom limit when provided', function () {
 });
 
 it('returns an empty array when no blocked emails exist', function () {
-    $metric = new TopBlockedRecipientMetric();
+    $metric = new TopBlockedRecipientMetric;
 
     $result = $metric->calculate();
 
@@ -100,7 +100,7 @@ it('applies start_date filter correctly', function () {
         'blocked_at' => now()->subDay(),
     ]);
 
-    $metric = new TopBlockedRecipientMetric();
+    $metric = new TopBlockedRecipientMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(5)->toDateTimeString(),
@@ -121,7 +121,7 @@ it('applies end_date filter correctly', function () {
         'blocked_at' => now()->subDay(),
     ]);
 
-    $metric = new TopBlockedRecipientMetric();
+    $metric = new TopBlockedRecipientMetric;
 
     $result = $metric->calculate([
         'end_date' => now()->subDays(2)->toDateTimeString(),
@@ -147,11 +147,11 @@ it('applies both start_date and end_date filters correctly', function () {
         'blocked_at' => now()->subDay(),
     ]);
 
-    $metric = new TopBlockedRecipientMetric();
+    $metric = new TopBlockedRecipientMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(6)->toDateTimeString(),
-        'end_date'   => now()->subDays(2)->toDateTimeString(),
+        'end_date' => now()->subDays(2)->toDateTimeString(),
     ]);
 
     expect($result)->toHaveCount(1)
@@ -164,13 +164,13 @@ it('does not double-apply date filters', function () {
         'blocked_at' => now()->subDays(3),
     ]);
 
-    $metric = new TopBlockedRecipientMetric();
+    $metric = new TopBlockedRecipientMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(5)->toDateTimeString(),
-        'end_date'   => now()->subDays(1)->toDateTimeString(),
+        'end_date' => now()->subDays(1)->toDateTimeString(),
     ]);
-    
+
     expect($result)->toHaveCount(1)
         ->and($result[0]['total'])->toBe(2);
 });
@@ -180,7 +180,7 @@ it('always returns a stable response structure', function () {
         'email' => 'user@example.com',
     ]);
 
-    $metric = new TopBlockedRecipientMetric();
+    $metric = new TopBlockedRecipientMetric;
 
     $result = $metric->calculate();
 

@@ -2,10 +2,10 @@
 
 namespace Sagautam5\EmailBlocker\Insights\Metrics;
 
-use Sagautam5\EmailBlocker\Models\BlockedEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Sagautam5\EmailBlocker\Abstracts\AbstractMetric;
-use Illuminate\Database\Eloquent\Builder;
+use Sagautam5\EmailBlocker\Models\BlockedEmail;
 
 class TopBlockedRecipientMetric extends AbstractMetric
 {

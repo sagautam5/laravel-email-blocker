@@ -19,7 +19,7 @@ it('returns blocked emails grouped by rule', function () {
         'rule' => 'ContentRule',
     ]);
 
-    $metric = new BlockedByRuleMetric();
+    $metric = new BlockedByRuleMetric;
 
     $result = $metric->calculate();
 
@@ -45,7 +45,7 @@ it('excludes records with null rule', function () {
         'rule' => 'SpamRule',
     ]);
 
-    $metric = new BlockedByRuleMetric();
+    $metric = new BlockedByRuleMetric;
 
     $result = $metric->calculate();
 
@@ -63,7 +63,7 @@ it('orders results by total in descending order', function () {
         'rule' => 'LowCountRule',
     ]);
 
-    $metric = new BlockedByRuleMetric();
+    $metric = new BlockedByRuleMetric;
 
     $result = $metric->calculate();
 
@@ -74,7 +74,7 @@ it('orders results by total in descending order', function () {
 });
 
 it('returns an empty array when no blocked emails exist', function () {
-    $metric = new BlockedByRuleMetric();
+    $metric = new BlockedByRuleMetric;
 
     $result = $metric->calculate();
 
@@ -92,7 +92,7 @@ it('applies start_date filter correctly', function () {
         'blocked_at' => now()->subDay(),
     ]);
 
-    $metric = new BlockedByRuleMetric();
+    $metric = new BlockedByRuleMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(5)->toDateTimeString(),
@@ -113,7 +113,7 @@ it('applies end_date filter correctly', function () {
         'blocked_at' => now()->subDay(),
     ]);
 
-    $metric = new BlockedByRuleMetric();
+    $metric = new BlockedByRuleMetric;
 
     $result = $metric->calculate([
         'end_date' => now()->subDays(5)->toDateTimeString(),
@@ -139,11 +139,11 @@ it('applies both start_date and end_date filters correctly', function () {
         'blocked_at' => now(),
     ]);
 
-    $metric = new BlockedByRuleMetric();
+    $metric = new BlockedByRuleMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(5)->toDateTimeString(),
-        'end_date'   => now()->subDays(1)->toDateTimeString(),
+        'end_date' => now()->subDays(1)->toDateTimeString(),
     ]);
 
     expect($result)->toHaveCount(1)
@@ -163,7 +163,7 @@ it('respects limit on results when applied', function () {
         'rule' => 'LowCountRule',
     ]);
 
-    $metric = new BlockedByRuleMetric();
+    $metric = new BlockedByRuleMetric;
 
     $result = collect($metric->calculate())->take(2)->toArray(); // applying limit manually
 
@@ -171,7 +171,6 @@ it('respects limit on results when applied', function () {
         ->and($result[0]['rule'])->toBe('HighCountRule')
         ->and($result[1]['rule'])->toBe('MediumCountRule');
 });
-
 
 it('applies multiple rules with overlapping date filters correctly', function () {
     // Older than 7 days
@@ -202,11 +201,11 @@ it('applies multiple rules with overlapping date filters correctly', function ()
         'blocked_at' => now()->subDays(2),
     ]);
 
-    $metric = new BlockedByRuleMetric();
+    $metric = new BlockedByRuleMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(5)->toDateTimeString(),
-        'end_date'   => now()->subDays(1)->toDateTimeString(),
+        'end_date' => now()->subDays(1)->toDateTimeString(),
     ]);
 
     // Only RecentRule1 should match (blocked_at 3 days ago)
@@ -232,11 +231,11 @@ it('aggregates totals correctly for multiple rules in range', function () {
         'blocked_at' => now()->subDays(1),
     ]);
 
-    $metric = new BlockedByRuleMetric();
+    $metric = new BlockedByRuleMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(3)->toDateTimeString(),
-        'end_date'   => now()->toDateTimeString(),
+        'end_date' => now()->toDateTimeString(),
     ]);
 
     // Expect aggregation and descending order
@@ -260,11 +259,11 @@ it('handles mixed null and valid rules within date range', function () {
         'blocked_at' => now()->subDays(1),
     ]);
 
-    $metric = new BlockedByRuleMetric();
+    $metric = new BlockedByRuleMetric;
 
     $result = $metric->calculate([
         'start_date' => now()->subDays(2)->toDateTimeString(),
-        'end_date'   => now()->toDateTimeString(),
+        'end_date' => now()->toDateTimeString(),
     ]);
 
     expect($result)->toHaveCount(1)

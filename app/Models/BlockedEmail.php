@@ -27,7 +27,7 @@ use Sagautam5\EmailBlocker\Enums\ReceiverType;
 class BlockedEmail extends Model
 {
     use HasFactory;
-    
+
     /**
      * The attributes that are mass assignable.
      *
