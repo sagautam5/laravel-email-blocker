@@ -21,3 +21,6 @@ jobs:
 
     - name: Run pest php tests
       run: vendor/bin/pest --parallel
+
+    - name: Run phpstan
+      run: vendor/bin/phpstan analyse app --level=7

@@ -8,6 +8,10 @@ use Sagautam5\EmailBlocker\Abstracts\BaseRule;
 
 class BlockByTimeWindowRule extends BaseRule
 {
+    /**
+     * @param  array<string>  $emails
+     * @return Closure|array<string>
+     */
     public function handle(array $emails, Closure $next): Closure|array
     {
         $timeWindow = config('email-blocker.settings.time_window', []);

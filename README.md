@@ -54,7 +54,7 @@ Sagar Gautam — Author & Maintainer
 This package is open-sourced software licensed under the MIT license.
 
 See the full license here:
-[LICENSE](github.com/sagautam5/laravel-email-blocker)
+[LICENSE](github.com/sagautam5/laravel-email-blocker/LICENSE)
 
 ## ⭐ Support
 
@@ -64,4 +64,4 @@ If this package helps you:
 - 🐛 Report issues
 - 💡 Suggest improvements
 
-Your support is appreciated!
+Your support is appreciated !

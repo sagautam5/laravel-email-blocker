@@ -21,12 +21,12 @@ class HandleMessageSending
      */
     public function handle(MessageSending $event): Email|bool
     {
-        if (config('email-blocker.block_enabled') === true) {
+        if (config('email-blocker.block_enabled') == true) {
             return $event->message;
         }
 
         $mailable = $event->data['__laravel_mailable'] ?? null;
-
+        
         return (new EmailBlockService($event->message, $mailable))->applyRules();
     }
 }

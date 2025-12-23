@@ -3,7 +3,6 @@
 namespace Sagautam5\EmailBlocker\Insights\Metrics;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\DB;
 use Sagautam5\EmailBlocker\Abstracts\AbstractMetric;
 use Sagautam5\EmailBlocker\Models\BlockedEmail;
 
@@ -14,6 +13,10 @@ class BlockedByMailableMetric extends AbstractMetric
         return 'Blocked Emails by Mailable';
     }
 
+    /**
+     * @param  array<string>  $filters
+     * @return array<mixed>
+     */
     public function calculate(array $filters = []): array
     {
         $query = $this->applyDateFilters($this->getQuery(), $filters);
@@ -21,11 +24,16 @@ class BlockedByMailableMetric extends AbstractMetric
         return $query->get()->toArray();
     }
 
+    /**
+     * @return Builder<BlockedEmail>
+     */
     protected function getQuery(): Builder
     {
+        // @phpstan-ignore-next-line
         return BlockedEmail::query()
             ->whereNotNull('mailable')
-            ->select('mailable', DB::raw('COUNT(*) as total'))
+            ->select('mailable')
+            ->selectRaw('COUNT(*) as total')
             ->groupBy('mailable')
             ->orderByDesc('total');
     }

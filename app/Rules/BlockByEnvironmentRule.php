@@ -7,6 +7,10 @@ use Sagautam5\EmailBlocker\Abstracts\BaseRule;
 
 class BlockByEnvironmentRule extends BaseRule
 {
+    /**
+     * @param  array<string>  $emails
+     * @return Closure|array<string>
+     */
     public function handle(array $emails, Closure $next): Closure|array
     {
         $blockedEnvironments = config('email-blocker.settings.blocked_environments', []);

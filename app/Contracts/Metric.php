@@ -11,6 +11,9 @@ interface Metric
 
     /**
      * Generates the metric data
+     * 
+     * @param array<string> $filters
+     * @return array<string>
      */
     public function calculate(array $filters = []): array;
 }

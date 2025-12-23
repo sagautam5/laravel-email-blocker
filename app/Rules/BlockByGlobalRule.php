@@ -7,6 +7,10 @@ use Sagautam5\EmailBlocker\Abstracts\BaseRule;
 
 class BlockByGlobalRule extends BaseRule
 {
+    /**
+     * @param  array<string>  $emails
+     * @return Closure|array<string>
+     */
     public function handle(array $emails, Closure $next): Closure|array
     {
         if (config('email-blocker.settings.global_block') == true) {

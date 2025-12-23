@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Sagautam5\EmailBlocker\Enums\ReceiverType;
+use Illuminate\Database\Eloquent\Builder;
+use Sagautam5\EmailBlocker\Database\Factories\BlockedEmailFactory;
 
 /**
  * Class BlockedEmail
@@ -26,6 +28,7 @@ use Sagautam5\EmailBlocker\Enums\ReceiverType;
  */
 class BlockedEmail extends Model
 {
+    /** @use HasFactory<BlockedEmailFactory> * */
     use HasFactory;
 
     /**
@@ -67,8 +70,11 @@ class BlockedEmail extends Model
 
     /**
      * Scope: filter by email.
+     * 
+     * @param  Builder<Model>  $query
+     * @return Builder<Model>
      */
-    public function scopeForEmail($query, string $email)
+    public function scopeForEmail(Builder $query, string $email): Builder
     {
         return $query->where('email', $email);
     }
@@ -80,16 +86,22 @@ class BlockedEmail extends Model
 
     /**
      * Scope: filter by rule.
+     * 
+     * @param  Builder<Model>  $query
+     * @return Builder<Model>
      */
-    public function scopeForRule($query, string $rule)
+    public function scopeForRule(Builder $query, string $rule): Builder
     {
         return $query->where('rule', $rule);
     }
 
     /**
      * Scope: only blocked by a given mailable.
+     * 
+     * @param  Builder<Model>  $query
+     * @return Builder<Model>
      */
-    public function scopeForMailable($query, string $mailable)
+    public function scopeForMailable(Builder $query, string $mailable): Builder
     {
         return $query->where('mailable', $mailable);
     }

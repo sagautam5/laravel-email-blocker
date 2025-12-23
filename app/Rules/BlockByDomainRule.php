@@ -7,6 +7,10 @@ use Sagautam5\EmailBlocker\Abstracts\BaseRule;
 
 class BlockByDomainRule extends BaseRule
 {
+    /**
+     * @param  array<string>  $emails
+     * @return Closure|array<string>
+     */
     public function handle(array $emails, Closure $next): Closure|array
     {
         $domains = $this->domains();
@@ -29,6 +33,9 @@ class BlockByDomainRule extends BaseRule
         return 'Recipient email domain is blocked by configuration.';
     }
 
+    /**
+     * @return array<string>
+     */
     public function domains(): array
     {
         $domains = config('email-blocker.settings.blocked_domains');
@@ -42,9 +49,15 @@ class BlockByDomainRule extends BaseRule
         return array_flip($domains);
     }
 
-    protected function filterEmails($domains, $emails)
+    /**
+     * @param  array<string>  $domains
+     * @param  array<string>  $emails
+     * 
+     * @return array<array<string>>
+     */
+    protected function filterEmails($domains, $emails): array
     {
-        $filtered = array_values(array_filter($emails, fn ($email) => ! isset($domains[substr(strrchr(strtolower($email), '@'), 1)])));
+        $filtered = array_values(array_filter($emails, fn ($email) => ! isset($domains[substr(strrchr(strtolower($email), '@') ?: '', 1)])));
 
         return [$filtered, array_diff($emails, $filtered)];
     }

@@ -3,8 +3,8 @@
 namespace Sagautam5\EmailBlocker\Services;
 
 use Illuminate\Pipeline\Pipeline;
+use Sagautam5\EmailBlocker\Abstracts\BaseRule;
 use Sagautam5\EmailBlocker\Enums\ReceiverType;
-use Sagautam5\EmailBlocker\Rules\BaseRule;
 use Sagautam5\EmailBlocker\Supports\EmailContext;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
@@ -85,6 +85,7 @@ class EmailBlockService
 
     /**
      * @param  array<string>  $emails
+     * @return array<string>
      */
     protected function getFilteredReceivers(array $emails, ReceiverType $type): array
     {
@@ -96,6 +97,9 @@ class EmailBlockService
             ->thenReturn();
     }
 
+    /**
+     * @return array<BaseRule>
+     */
     protected function getBlockRules(ReceiverType $type): array
     {
         return array_map(function ($rule) use ($type) {
@@ -134,7 +138,7 @@ class EmailBlockService
     /**
      * Apply "Cc" receivers.
      *
-     * @param  array<int, Address>  $cc
+     * @param  array<string>  $cc
      */
     protected function applyCc(array $cc): void
     {
@@ -156,7 +160,7 @@ class EmailBlockService
     /**
      * Apply "Bcc" receivers.
      *
-     * @param  array<int, Address>  $bcc
+     * @param  array<string>  $bcc
      */
     protected function applyBcc(array $bcc): void
     {

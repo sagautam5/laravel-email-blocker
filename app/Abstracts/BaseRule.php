@@ -22,7 +22,10 @@ abstract class BaseRule implements BlockEmailRule
 
     abstract public function getReason(): string;
 
-    protected function handleLog(array $emails)
+    /**
+     * @param  array<string>  $emails
+     */
+    protected function handleLog(array $emails): void
     {
         if (config('email-blocker.log_enabled') !== true) {
             return;

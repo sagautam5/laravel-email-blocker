@@ -14,6 +14,10 @@ class ReceiverTypeDistributionMetric extends AbstractMetric
         return 'Receiver Type Distribution';
     }
 
+    /**
+     * @param  array<string>  $filters
+     * @return array<mixed>
+     */
     public function calculate(array $filters = []): array
     {
         $query = $this->applyDateFilters($this->getQuery(), $filters);
@@ -21,8 +25,12 @@ class ReceiverTypeDistributionMetric extends AbstractMetric
         return $query->get()->toArray();
     }
 
+    /**
+     * @return Builder<BlockedEmail>
+     */
     protected function getQuery(): Builder
     {
+        // @phpstan-ignore-next-line
         return BlockedEmail::query()
             ->select('receiver_type', DB::raw('COUNT(*) as total'))
             ->groupBy('receiver_type')

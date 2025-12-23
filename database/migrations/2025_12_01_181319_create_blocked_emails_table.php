@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('mailable')->nullable()->index();
             $table->string('subject')->nullable();
 
-            $table->string('from_name');
+            $table->string('from_name')->nullable();
             $table->string('from_email');
 
             $table->string('email')->index();

@@ -8,7 +8,7 @@ use Symfony\Component\Mime\Email;
 
 class EmailLogger
 {
-    public function info(BlockedEmailContext $blockedContext)
+    public function info(BlockedEmailContext $blockedContext): void
     {
         $message = $blockedContext->context->message;
 
@@ -24,14 +24,14 @@ class EmailLogger
             'receiver_type' => $blockedContext->receiver_type,
         ];
 
-        BlockedEmail::create($data);
+        BlockedEmail::create($data); // @phpstan-ignore-line
     }
 
-    private function extractContent(?Email $message): ?string
+    private function extractContent(?Email $message): string
     {
         $content = $message?->getHtmlBody()
             ?? $message?->getTextBody();
 
-        return mb_substr($content, 0, 10000);
+        return mb_substr((string) $content, 0, 10000);
     }
 }

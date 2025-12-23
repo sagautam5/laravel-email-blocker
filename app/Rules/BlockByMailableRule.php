@@ -7,6 +7,10 @@ use Sagautam5\EmailBlocker\Abstracts\BaseRule;
 
 class BlockByMailableRule extends BaseRule
 {
+    /**
+     * @param  array<string>  $emails
+     * @return Closure|array<string>
+     */
     public function handle(array $emails, Closure $next): Closure|array
     {
         $mailables = $this->mailables();
@@ -28,6 +32,9 @@ class BlockByMailableRule extends BaseRule
         );
     }
 
+    /**
+     * @return array<string>
+     */
     protected function mailables(): array
     {
         return config('email-blocker.settings.blocked_mailables');

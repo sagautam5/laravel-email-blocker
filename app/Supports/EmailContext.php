@@ -14,7 +14,7 @@ class EmailContext
      */
     public function getMailableClass(): ?string
     {
-        return $this->mailable ? get_class($this->mailable) : null;
+        return $this->mailable ?: null;
     }
 
     /**
@@ -25,7 +25,7 @@ class EmailContext
         return once(function () {
             $from = $this->message->getFrom();
 
-            return $from[0]->getAddress() ?? null;
+            return $from[0]->getAddress() ?: null;
         });
     }
 
@@ -37,7 +37,7 @@ class EmailContext
         return once(function () {
             $from = $this->message->getFrom();
 
-            return $from[0]->getName() ?? null;
+            return $from[0]->getName() ?: null;
         });
     }
 

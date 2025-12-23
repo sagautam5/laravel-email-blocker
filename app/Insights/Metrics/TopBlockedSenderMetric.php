@@ -14,17 +14,25 @@ class TopBlockedSenderMetric extends AbstractMetric
         return 'Top Blocked Senders';
     }
 
+    /**
+     * @param  array<string>  $filters
+     * @return array<mixed>
+     */
     public function calculate(array $filters = []): array
     {
         $query = $this->applyDateFilters($this->getQuery(), $filters);
 
-        $limit = $filters['limit'] ?? 10;
+        $limit = (int) ($filters['limit'] ?? 10);
 
         return $query->take($limit)->get()->toArray();
     }
 
+    /**
+     * @return Builder<BlockedEmail>
+     */
     protected function getQuery(): Builder
     {
+        // @phpstan-ignore-next-line
         return BlockedEmail::query()
             ->select('from_email', DB::raw('COUNT(*) as total'))
             ->groupBy('from_email')

@@ -14,6 +14,10 @@ class BlockedByRuleMetric extends AbstractMetric
         return 'Blocked Emails by Rule';
     }
 
+    /**
+     * @param  array<string>  $filters
+     * @return array<mixed>
+     */
     public function calculate(array $filters = []): array
     {
         $query = $this->applyDateFilters($this->getQuery(), $filters);
@@ -21,8 +25,12 @@ class BlockedByRuleMetric extends AbstractMetric
         return $query->get()->toArray();
     }
 
+    /**
+     * @return Builder<BlockedEmail>
+     */
     protected function getQuery(): Builder
     {
+        // @phpstan-ignore-next-line
         return BlockedEmail::query()
             ->whereNotNull('rule')
             ->select('rule', DB::raw('COUNT(*) as total'))
