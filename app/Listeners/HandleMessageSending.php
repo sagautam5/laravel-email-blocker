@@ -26,7 +26,7 @@ class HandleMessageSending
         }
 
         $mailable = $event->data['__laravel_mailable'] ?? null;
-        
+
         return (new EmailBlockService($event->message, $mailable))->applyRules();
     }
 }

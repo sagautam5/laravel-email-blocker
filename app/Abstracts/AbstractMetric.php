@@ -10,12 +10,13 @@ abstract class AbstractMetric implements Metric
 {
     /**
      * Optional: common filters like date range
+     *
      * @var array<string>
      */
     protected array $filters = [];
 
     /**
-     * @param array<string> $filters
+     * @param  array<string>  $filters
      */
     public function setFilters(array $filters): void
     {
@@ -24,8 +25,7 @@ abstract class AbstractMetric implements Metric
 
     /**
      * @param  Builder<BlockedEmail>  $query
-     * @param array<string> $filters
-     * 
+     * @param  array<string>  $filters
      * @return Builder<BlockedEmail>
      */
     protected function applyDateFilters(Builder $query, array $filters): Builder
@@ -43,8 +43,8 @@ abstract class AbstractMetric implements Metric
 
     /**
      * AbstractMetric forces implementing calculate()
-     * 
-     * @param array<string> $filters
+     *
+     * @param  array<string>  $filters
      * @return array<mixed>
      */
     abstract public function calculate(array $filters = []): array;

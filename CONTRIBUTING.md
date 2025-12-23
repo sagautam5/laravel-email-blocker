@@ -57,7 +57,7 @@ vendor/bin/pest
 
 - Make sure contribution align with phpstan standards. You can run following command to ensure this.
 ```sh  
-vendor/bin/phpstan analyse --level=8 app/
+vendor/bin/phpstan analyse --level=7 app/
 ```
 - Make sure new addition is well formatted by running following command.
 

@@ -25,8 +25,8 @@ class TopMailableRulePairsMetric extends AbstractMetric
             ->get()
             ->map(fn ($row) => [
                 'mailable' => $row->mailable ?? '',
-                'rule'     => $row->rule ?? '',
-                'count'    => (int) ($row->total ?? 0),
+                'rule' => $row->rule ?? '',
+                'count' => (int) ($row->total ?? 0),
             ])
             ->toArray();
     }

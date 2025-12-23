@@ -52,7 +52,6 @@ class BlockByDomainRule extends BaseRule
     /**
      * @param  array<string>  $domains
      * @param  array<string>  $emails
-     * 
      * @return array<array<string>>
      */
     protected function filterEmails($domains, $emails): array

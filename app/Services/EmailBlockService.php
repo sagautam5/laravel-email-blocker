@@ -6,7 +6,6 @@ use Illuminate\Pipeline\Pipeline;
 use Sagautam5\EmailBlocker\Abstracts\BaseRule;
 use Sagautam5\EmailBlocker\Enums\ReceiverType;
 use Sagautam5\EmailBlocker\Supports\EmailContext;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
 class EmailBlockService

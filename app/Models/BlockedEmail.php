@@ -2,12 +2,12 @@
 
 namespace Sagautam5\EmailBlocker\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
-use Sagautam5\EmailBlocker\Enums\ReceiverType;
-use Illuminate\Database\Eloquent\Builder;
 use Sagautam5\EmailBlocker\Database\Factories\BlockedEmailFactory;
+use Sagautam5\EmailBlocker\Enums\ReceiverType;
 
 /**
  * Class BlockedEmail
@@ -70,7 +70,7 @@ class BlockedEmail extends Model
 
     /**
      * Scope: filter by email.
-     * 
+     *
      * @param  Builder<Model>  $query
      * @return Builder<Model>
      */
@@ -86,7 +86,7 @@ class BlockedEmail extends Model
 
     /**
      * Scope: filter by rule.
-     * 
+     *
      * @param  Builder<Model>  $query
      * @return Builder<Model>
      */
@@ -97,7 +97,7 @@ class BlockedEmail extends Model
 
     /**
      * Scope: only blocked by a given mailable.
-     * 
+     *
      * @param  Builder<Model>  $query
      * @return Builder<Model>
      */
