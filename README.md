@@ -44,11 +44,11 @@ composer require sagautam5/laravel-email-blocker
 
 | Rule                     | Purpose                            |
 | ------------------------ | ---------------------------------- |
-| `BlockByGlobalRule`      | Emergency stop – blocks everything |
+| `BlockByGlobalRule`      | Emergency stop – blocks all emails |
 | `BlockByEnvironmentRule` | Blocks based on app environment    |
-| `BlockByDomainRule`      | Blocks email domains               |
-| `BlockByMailableRule`    | Blocks specific mail classes       |
-| `BlockByTimeWindowRule`  | Restricts email sending time       |
+| `BlockByDomainRule`      | Blocks domain specific emails      |
+| `BlockByMailableRule`    | Blocks specific mailable classes   |
+| `BlockByTimeWindowRule`  | Restricts emails within time frame |
 | `BlockByEmailRule`       | Blocks exact email addresses       |
 
 ### Customization
@@ -94,7 +94,7 @@ or
 By default, it is set to false.
 
 #### Environment Block
-This rule blocks emails in specific environments (e.g., local, staging). You can define blocked environments inside `blocked_environments` settings.
+This rule blocks emails in specific environments (e.g., local, staging). Add environments in your configurations.
 
 ```php
 'blocked_environments' => [
@@ -113,6 +113,8 @@ This rule blocks emails sent to specific domains. Add domains in your configurat
 ],
 ```
 
+By default, emails are not blocked in any domains
+
 #### Mailable Block
 This rule blocks specific mailables. Add mailable class names in your configuration:
 ```php
@@ -120,6 +122,8 @@ This rule blocks specific mailables. Add mailable class names in your configurat
     'App\Mail\WelcomeMail',
 ],
 ```
+
+By default, emails are not blocked for any mailable
 
 #### Time Window Block
 This rule blocks emails during a specific time window within given timezone. Configure start and end times:
@@ -132,7 +136,7 @@ This rule blocks emails during a specific time window within given timezone. Con
 ],
 ```
 
-Hour should be in 24 hours format
+Hour should be in 24 hours format. By default, emails are not blocked for a time range. 
 
 #### Email Block
 This rule blocks specific email addresses. Add emails in your configuration:
@@ -142,6 +146,7 @@ This rule blocks specific email addresses. Add emails in your configuration:
 ],
 ```
 By default, no individual emails are blocked.
+
 ## 📊 Available Insights
 
 The package includes several built-in metrics for analyzing blocked emails:
@@ -161,9 +166,6 @@ These help identify:
 - Over-aggressive rules
 - Blocking trends over time
 
-### Basic Usage
-
-
 
 ### 📊 Insights Overview
 | Metric Class                  | What It Represents                                                      | Filter Options                         |
@@ -174,7 +176,7 @@ These help identify:
 | `CountBlockedEmailsMetric`     | Total number of blocked emails in a given time period.                 | `start_date`, `end_date`               |
 | `ReceiverTypeDistributionMetric` | Shows distribution of blocked emails **by receiver type**.          | `start_date`, `end_date`               |
 | `TopBlockedRecipientMetric`    | Lists recipients who **had the most blocked emails**.                  | `start_date`, `end_date`, `limit`     |
-| `TopBlockedSenderMetric`       | Lists senders who **triggered the most blocked emails**.               | `start_date`, `end_date`, `limit`     |
+| `TopBlockedSenderMetric`       | Lists senders who **triggered the most blocked emails**.               | `start_date`, `Hour should be in 24 hours formatend_date`, `limit`     |
 | `TopMailableRulePairsMetric`   | Shows **which mailables are blocked by which rules most frequently**.  | `start_date`, `end_date`, `limit`     |
 
 ### Basic Usage
