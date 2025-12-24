@@ -22,7 +22,10 @@ class BlockedByRuleMetric extends AbstractMetric
     {
         $query = $this->applyDateFilters($this->getQuery(), $filters);
 
-        return $query->get()->toArray();
+        return $query
+            ->limit((int) ($filters['limit'] ?? 10))
+            ->get()
+            ->toArray();
     }
 
     /**

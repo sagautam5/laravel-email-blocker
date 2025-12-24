@@ -1,4 +1,4 @@
-# Laravel Email Blocker
+## Laravel Email Blocker
 
 ![Build](https://github.com/sagautam5/laravel-email-blocker/workflows/CI/badge.svg)
 [![Latest Stable Version](https://poser.pugx.org/sagautam5/laravel-email-blocker/v)](//packagist.org/packages/sagautam5/laravel-email-blocker)
@@ -36,9 +36,9 @@ Install the package via Composer:
 
 ```bash
 composer require sagautam5/laravel-email-blocker
-```
+``` 
 
-## Configuration
+## 🔧 Configuration
 
 ### Applied Rules
 
@@ -64,21 +64,21 @@ This will create the following file:
 ```php
 config/email-blocker.php
 ```
-
-#### Disabling Email Blocking
+## 🧪 Usage Guide
+### Disabling Email Blocking
 
 To disable email blocking entirely, set the following environment variable to false in your .env file:
 ```php
 EMAIL_BLOCK_ENABLED=false
 ```
 
-#### Disable Existing Rules
+### Disable Existing Rules
 
 To disable existing rules, just remove rule from list of rules array in the config file.
 
-#### Rule Based Configuration
+### Rule Based Configuration
 Currently, a set of general-purpose rules is included in the default setup. These rules can be enabled or disabled as needed, and the package also provides options for customization.
-##### Global Block
+#### Global Block
 
 This rule can be applied to disable all emails sent from the system. To enable it, simply set this variable to true.
 ```php
@@ -93,7 +93,7 @@ or
 
 By default, it is set to false.
 
-##### Environment Block
+#### Environment Block
 This rule blocks emails in specific environments (e.g., local, staging). You can define blocked environments inside `blocked_environments` settings.
 
 ```php
@@ -142,7 +142,7 @@ This rule blocks specific email addresses. Add emails in your configuration:
 ],
 ```
 By default, no individual emails are blocked.
-## 📊 Available Metrics
+## 📊 Available Insights
 
 The package includes several built-in metrics for analyzing blocked emails:
 
@@ -161,6 +161,50 @@ These help identify:
 - Over-aggressive rules
 - Blocking trends over time
 
+### Basic Usage
+
+
+
+### 📊 Insights Overview
+| Metric Class                  | What It Represents                                                      | Filter Options                         |
+| ----------------------------- | ----------------------------------------------------------------------- | ------------------------------------- |
+| `BlockedByMailableMetric`      | Shows how many emails were blocked **for each mail class**.            | `start_date`, `end_date`, `limit`     |
+| `BlockedByRuleMetric`          | Shows how many emails were blocked **by each blocking rule**.          | `start_date`, `end_date`, `limit`     |
+| `BlockedOverTimeMetric`        | Shows trends of blocked emails **over time** (per day/week/month).     | `start_date`, `end_date`  |
+| `CountBlockedEmailsMetric`     | Total number of blocked emails in a given time period.                 | `start_date`, `end_date`               |
+| `ReceiverTypeDistributionMetric` | Shows distribution of blocked emails **by receiver type**.          | `start_date`, `end_date`               |
+| `TopBlockedRecipientMetric`    | Lists recipients who **had the most blocked emails**.                  | `start_date`, `end_date`, `limit`     |
+| `TopBlockedSenderMetric`       | Lists senders who **triggered the most blocked emails**.               | `start_date`, `end_date`, `limit`     |
+| `TopMailableRulePairsMetric`   | Shows **which mailables are blocked by which rules most frequently**.  | `start_date`, `end_date`, `limit`     |
+
+### Basic Usage
+
+#### Filters
+```php
+
+$filters = [
+    'start_date' => '2025-12-01',
+    'end_date' => '2025-12-24',
+    'limit' => 5, // return top 5 blocked mailables
+];
+
+$metric = new BlockedByMailableMetric();
+$metric->calculate($filters)
+```
+
+#### Result
+```php
+[
+    [
+        'mailable' => 'App\Mail\WelcomeMail',
+        'total' => 10,
+    ],
+    [
+        'mailable' => 'App\Mail\OrderConfirmationMail',
+        'total' => 9,
+    ],
+]
+```
 
 ## 👥 Contributors
 

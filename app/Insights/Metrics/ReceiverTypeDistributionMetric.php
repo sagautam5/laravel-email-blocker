@@ -22,7 +22,9 @@ class ReceiverTypeDistributionMetric extends AbstractMetric
     {
         $query = $this->applyDateFilters($this->getQuery(), $filters);
 
-        return $query->get()->toArray();
+        return $query
+            ->get()
+            ->toArray();
     }
 
     /**
