@@ -36,7 +36,7 @@ return [
             'to' => null, // '18:00',
             'timezone' => null, // 'Asia/Kathmandu',
         ],
-        'global_block' => true,
+        'global_block' => env('GLOBAL_EMAIL_BLOCK_ENABLED', true),
         'blocked_domains' => [
             // 'example.com',
             // E.g. 'gmail.com',

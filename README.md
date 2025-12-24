@@ -1,10 +1,23 @@
 # Laravel Email Blocker
 
+![Build](https://github.com/sagautam5/laravel-email-blocker/workflows/CI/badge.svg)
+[![Latest Stable Version](https://poser.pugx.org/sagautam5/laravel-email-blocker/v)](//packagist.org/packages/sagautam5/laravel-email-blocker)
+[![Total Downloads](https://poser.pugx.org/sagautam5/laravel-email-blocker/downloads)](//packagist.org/packages/sagautam5/laravel-email-blocker)
+[![Issues](https://img.shields.io/github/issues/sagautam5/laravel-email-blocker
+)](https://github.com/sagautam5/laravel-email-blocker/issues) [![Stars](https://img.shields.io/github/stars/sagautam5/laravel-email-blocker
+)](https://github.com/sagautam5/laravel-email-blocker/stargazers) 
+[![License](https://img.shields.io/github/license/sagautam5/laravel-email-blocker)](https://github.com/sagautam5/laravel-email-blocker/blob/master/LICENSE) 
+[![Forks](https://img.shields.io/github/forks/sagautam5/laravel-email-blocker
+)](https://github.com/sagautam5/laravel-email-blocker/network/members) 
+[![Twitter](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Fsagautam5%2Flaravel-email-blocker
+)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fsagautam5%2Flaravel-email-blocker)
+
 Laravel Email Blocker is a lightweight, extensible package that allows you to **block outgoing emails based on custom rules**, **log blocked emails**, and **analyze email-blocking behavior using insightful metrics**.
 
 It is ideal for staging environments, QA systems, multi-tenant applications, and compliance-sensitive projects where controlling outgoing emails is critical.
 
 ---
+
 
 ## ✨ Features
 
@@ -25,6 +38,110 @@ Install the package via Composer:
 composer require sagautam5/laravel-email-blocker
 ```
 
+## Configuration
+
+### Applied Rules
+
+| Rule                     | Purpose                            |
+| ------------------------ | ---------------------------------- |
+| `BlockByGlobalRule`      | Emergency stop – blocks everything |
+| `BlockByEnvironmentRule` | Blocks based on app environment    |
+| `BlockByDomainRule`      | Blocks email domains               |
+| `BlockByMailableRule`    | Blocks specific mail classes       |
+| `BlockByTimeWindowRule`  | Restricts email sending time       |
+| `BlockByEmailRule`       | Blocks exact email addresses       |
+
+### Customization
+For customization, you can publish configuration file and make adjustments as per your requirements.
+
+To publish the package configuration file, run:
+
+```sh
+php artisan vendor:publish --provider="Sagautam5\EmailBlocker\EmailBlockerServiceProvider" --tag="config"
+```
+
+This will create the following file:
+```php
+config/email-blocker.php
+```
+
+#### Disabling Email Blocking
+
+To disable email blocking entirely, set the following environment variable to false in your .env file:
+```php
+EMAIL_BLOCK_ENABLED=false
+```
+
+#### Disable Existing Rules
+
+To disable existing rules, just remove rule from list of rules array in the config file.
+
+#### Rule Based Configuration
+Currently, a set of general-purpose rules is included in the default setup. These rules can be enabled or disabled as needed, and the package also provides options for customization.
+##### Global Block
+
+This rule can be applied to disable all emails sent from the system. To enable it, simply set this variable to true.
+```php
+GLOBAL_EMAIL_BLOCK_ENABLED=true
+```
+
+or
+
+```php
+'global_block' => true,
+```
+
+By default, it is set to false.
+
+##### Environment Block
+This rule blocks emails in specific environments (e.g., local, staging). You can define blocked environments inside `blocked_environments` settings.
+
+```php
+'blocked_environments' => [
+    'local',
+    'testing',
+],
+```
+By default, emails are not blocked in any environments.
+
+#### Domain Block
+
+This rule blocks emails sent to specific domains. Add domains in your configuration:
+```php
+'blocked_domains' => [
+    'example.com',
+],
+```
+
+#### Mailable Block
+This rule blocks specific mailables. Add mailable class names in your configuration:
+```php
+'blocked_mailables' => [
+    'App\Mail\WelcomeMail',
+],
+```
+
+#### Time Window Block
+This rule blocks emails during a specific time window within given timezone. Configure start and end times:
+
+```php
+'time_window' => [
+    'from' => '09:00',
+    'to' => '18:00',
+    'timezone' => 'Asia/Kathmandu',
+],
+```
+
+Hour should be in 24 hours format
+
+#### Email Block
+This rule blocks specific email addresses. Add emails in your configuration:
+```php
+'blocked_emails' => [
+    'user@ample.com',
+],
+```
+By default, no individual emails are blocked.
 ## 📊 Available Metrics
 
 The package includes several built-in metrics for analyzing blocked emails:
