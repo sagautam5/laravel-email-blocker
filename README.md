@@ -12,6 +12,7 @@
 [![Twitter](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Fsagautam5%2Flaravel-email-blocker
 )](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fsagautam5%2Flaravel-email-blocker)
 
+
 ## 🚀 Introduction
 
 Laravel Email Blocker is a lightweight and extensible package that allows you to control, block, log, and analyze outgoing emails using configurable, rule-based logic.
@@ -24,6 +25,40 @@ It is especially useful for:
 - 🚨 Preventing accidental emails to real users
 
 The package integrates seamlessly with Laravel’s mail system and introduces minimal overhead.
+
+## 📑 Table of Contents
+
+- [Introduction](#-introduction)
+- [Features](#-features)
+- [Requirements](#-requirements)
+- [Installation](#-installation)
+- [Configuration](#-configuration)
+    - [Default Configuration](#default-configuration)
+- [Usage Guide](#-usage-guide)
+    - [Disable Email Blocking Completely](#disable-email-blocking-completely)
+    - [Disable Specific Rules](#disable-specific-rules)
+    - [Built-in Blocking Rules](#-built-in-blocking-rules)
+        - [Global Block](#1️⃣-global-block)
+        - [Environment Block](#2️⃣-environment-block)
+        - [Domain Block](#3️⃣-domain-block)
+        - [Mailable Block](#4️⃣-mailable-block)
+        - [Time Window Block](#5️⃣-time-window-block)
+        - [Email Block](#6️⃣-email-block)
+- [Insights & Metrics](#-insights--metrics)
+    - [Available Metrics](#available-metrics)
+    - [Common Filters](#common-filters)
+    - [Example Usage](#example-usage)
+    - [Example Output](#example-output)
+- [Customization](#-customization)
+    - [Example Custom Rule](#example-custom-rule)
+    - [Example Custom Metric](#example-custom-metric)
+        - [Usage](#usage)
+        - [Output](#output)
+- [Security](#-security)
+- [Contributing](#-contributing)
+- [Credits](#-credits)
+- [Support](#-support)
+- [License](#-license)
 
 ---
 
@@ -266,7 +301,7 @@ $result = $metric->calculate([
 ]
 ```
 
-## 🧩 Extending the Package
+## 🧩 Customization
 
 You can create custom blocking rules or custom metrics by extending the provided base classes:
 
@@ -387,6 +422,11 @@ $totalBlocked = $metric->calculate([
 ];
 ```
 
+## Testing
+```bash
+composer test
+```
+
 ## 🔐 Security
 If you discover a security vulnerability within this package, please send an e-mail to sagautam5@gmail.com, All security vulnerabilities will be promptly addressed.
 
@@ -395,7 +435,8 @@ Please see CONTRIBUTING for details.
 
 ## 👥 Credits
 
-Sagar Gautam — Author & Maintainer
+- [Sagar Gautam](https://github.com/sagautam5) — Author & Maintainer
+- All Contribtors
 
 
 ## ⭐ Support

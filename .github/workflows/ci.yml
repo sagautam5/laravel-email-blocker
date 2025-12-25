@@ -20,7 +20,7 @@ jobs:
       run: composer install --prefer-dist --no-progress --no-interaction
 
     - name: Run pest php tests
-      run: vendor/bin/pest --parallel
+      run: composer test
 
     - name: Run phpstan
-      run: vendor/bin/phpstan analyse app --level=7
+      run: composer phpstan

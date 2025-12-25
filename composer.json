@@ -40,5 +40,10 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
+    },
+    "scripts": {
+        "phpstan": "vendor/bin/phpstan analyse --level=7 app",
+        "test": "vendor/bin/pest --parallel",
+        "format": "vendor/bin/pint"
     }
 }

@@ -52,17 +52,17 @@ composer install
 - Create and test the feature/issue and make sure it doesn't affect codebase by running full tests by executing following console command for two different environment variables.
 
 ```sh
-vendor/bin/pest 
+composer test
 ```
 
 - Make sure contribution align with phpstan standards. You can run following command to ensure this.
 ```sh  
-vendor/bin/phpstan analyse --level=7 app/
+composer phpstan
 ```
 - Make sure new addition is well formatted by running following command.
 
 ```sh 
-vendor/bin/pint
+composer format
 ```
 - Check the codebase to ensure that your feature doesn't already exist.
 - Check the pull requests to ensure that another person hasn't already submitted the feature or fix.
