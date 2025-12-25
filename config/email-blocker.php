@@ -10,7 +10,7 @@ use Sagautam5\EmailBlocker\Rules\BlockByTimeWindowRule;
 return [
 
     'block_enabled' => env('EMAIL_BLOCK_ENABLED', true),
-    'log_enabled' => false,
+    'log_enabled' => env('EMAIL_BLOCK_LOG_ENABLED', false),
 
     'log_table' => 'blocked_emails',
 

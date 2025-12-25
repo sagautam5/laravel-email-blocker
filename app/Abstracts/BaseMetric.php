@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Sagautam5\EmailBlocker\Contracts\Metric;
 use Sagautam5\EmailBlocker\Models\BlockedEmail;
 
-abstract class AbstractMetric implements Metric
+abstract class BaseMetric implements Metric
 {
     /**
      * Optional: common filters like date range

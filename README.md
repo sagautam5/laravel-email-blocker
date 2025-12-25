@@ -12,75 +12,139 @@
 [![Twitter](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Fsagautam5%2Flaravel-email-blocker
 )](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fsagautam5%2Flaravel-email-blocker)
 
-Laravel Email Blocker is a lightweight, extensible package that allows you to **block outgoing emails based on custom rules**, **log blocked emails**, and **analyze email-blocking behavior using insightful metrics**.
+## 🚀 Introduction
 
-It is ideal for staging environments, QA systems, multi-tenant applications, and compliance-sensitive projects where controlling outgoing emails is critical.
+Laravel Email Blocker is a lightweight and extensible package that allows you to control, block, log, and analyze outgoing emails using configurable, rule-based logic.
+
+It is especially useful for:
+
+- 🧪 Local, testing, and staging environments
+- 🏢 Multi-tenant or enterprise systems
+- 📜 Compliance-sensitive applications
+- 🚨 Preventing accidental emails to real users
+
+The package integrates seamlessly with Laravel’s mail system and introduces minimal overhead.
 
 ---
-
 
 ## ✨ Features
-
-- 🚫 Block outgoing emails using rule-based logic
-- 🧩 Easily extendable rule architecture
-- 📝 Persist blocked emails for auditing
+- 🚫 Rule-based email blocking
+- 🧩 Pluggable & extensible rule architecture
+- 📝 Persistent logging of blocked emails
 - 📊 Built-in insights & metrics
 - 🧪 Pest PHP–friendly test setup
-- ⚙️ Minimal impact on existing mail flow
+- ⚙️ Zero changes required to existing mail code
 
 ---
+
+## 📋 Requirements
+
+- PHP **8.2** or higher
+- Laravel **11.x** or higher
 
 ## 📦 Installation
 
-Install the package via Composer:
+Install via Composer:
 
 ```bash
 composer require sagautam5/laravel-email-blocker
 ``` 
+The package supports Laravel auto-discovery.
 
 ## 🔧 Configuration
 
-### Applied Rules
-
-| Rule                     | Purpose                            |
-| ------------------------ | ---------------------------------- |
-| `BlockByGlobalRule`      | Emergency stop – blocks all emails |
-| `BlockByEnvironmentRule` | Blocks based on app environment    |
-| `BlockByDomainRule`      | Blocks domain specific emails      |
-| `BlockByMailableRule`    | Blocks specific mailable classes   |
-| `BlockByTimeWindowRule`  | Restricts emails within time frame |
-| `BlockByEmailRule`       | Blocks exact email addresses       |
-
-### Customization
-For customization, you can publish configuration file and make adjustments as per your requirements.
-
-To publish the package configuration file, run:
-
-```sh
-php artisan vendor:publish --provider="Sagautam5\EmailBlocker\EmailBlockerServiceProvider" --tag="config"
+Publish Configuration File
+```bash 
+php artisan vendor:publish --provider="Sagautam5\EmailBlocker\EmailBlockerServiceProvider --tag="config"
 ```
 
-This will create the following file:
+This will create:
 ```php
 config/email-blocker.php
 ```
+
+### Default Configuration
+
+```php
+<?php
+
+use Sagautam5\EmailBlocker\Rules\BlockByDomainRule;
+use Sagautam5\EmailBlocker\Rules\BlockByEmailRule;
+use Sagautam5\EmailBlocker\Rules\BlockByEnvironmentRule;
+use Sagautam5\EmailBlocker\Rules\BlockByGlobalRule;
+use Sagautam5\EmailBlocker\Rules\BlockByMailableRule;
+use Sagautam5\EmailBlocker\Rules\BlockByTimeWindowRule;
+
+return [
+
+    // Master switch for the package
+    'block_enabled' => env('EMAIL_BLOCK_ENABLED', true),
+
+    // Enable database logging of blocked emails
+    'log_enabled' => env('EMAIL_BLOCK_LOG_ENABLED', false),
+
+    // Database table for logs
+    'log_table' => 'blocked_emails',
+
+    // Applied rules (executed in order)
+    'rules' => [
+        BlockByGlobalRule::class,
+        BlockByEnvironmentRule::class,
+        BlockByDomainRule::class,
+        BlockByMailableRule::class,
+        BlockByTimeWindowRule::class,
+        BlockByEmailRule::class,
+
+        // App\Rules\CustomEmailBlockRule::class,
+    ],
+
+    // Rule-specific settings
+    'settings' => [
+
+        'global_block' => env('GLOBAL_EMAIL_BLOCK_ENABLED', false),
+
+        'blocked_environments' => [
+            // 'local',
+            // 'staging',
+        ],
+
+        'blocked_domains' => [
+            // 'example.com',
+        ],
+
+        'blocked_mailables' => [
+            // App\Mail\WelcomeMail::class,
+        ],
+
+        'blocked_emails' => [
+            // 'user@example.com',
+        ],
+
+        'time_window' => [
+            'from' => null, // '09:00'
+            'to' => null,   // '18:00'
+            'timezone' => null, // 'Asia/Kathmandu'
+        ],
+    ],
+];
+```
 ## 🧪 Usage Guide
-### Disabling Email Blocking
+### Disable Email Blocking Completely
 
 To disable email blocking entirely, set the following environment variable to false in your .env file:
 ```php
 EMAIL_BLOCK_ENABLED=false
 ```
+This disables all rules and logging. By default, email block is enabled.
 
-### Disable Existing Rules
+### Disable Specific Rules
 
-To disable existing rules, just remove rule from list of rules array in the config file.
+Simply remove the rule class from the rules array in `config/email-blocker.php`.
 
-### Rule Based Configuration
-Currently, a set of general-purpose rules is included in the default setup. These rules can be enabled or disabled as needed, and the package also provides options for customization.
-#### Global Block
+### 🧱 Built-in Blocking Rules
+#### 1️⃣ Global Block
 
-This rule can be applied to disable all emails sent from the system. To enable it, simply set this variable to true.
+Blocks all outgoing emails.
 ```php
 GLOBAL_EMAIL_BLOCK_ENABLED=true
 ```
@@ -91,10 +155,10 @@ or
 'global_block' => true,
 ```
 
-By default, it is set to false.
+By default, it's not enabled.
 
-#### Environment Block
-This rule blocks emails in specific environments (e.g., local, staging). Add environments in your configurations.
+#### 2️⃣ Environment Block
+Blocks emails in selected environments.
 
 ```php
 'blocked_environments' => [
@@ -104,9 +168,9 @@ This rule blocks emails in specific environments (e.g., local, staging). Add env
 ```
 By default, emails are not blocked in any environments.
 
-#### Domain Block
+#### 3️⃣ Domain Block
 
-This rule blocks emails sent to specific domains. Add domains in your configuration:
+Blocks emails sent to specific domains.
 ```php
 'blocked_domains' => [
     'example.com',
@@ -115,19 +179,19 @@ This rule blocks emails sent to specific domains. Add domains in your configurat
 
 By default, emails are not blocked in any domains
 
-#### Mailable Block
-This rule blocks specific mailables. Add mailable class names in your configuration:
+#### 4️⃣ Mailable Block
+Blocks email sent via specific `Mailable` classes.
+
 ```php
 'blocked_mailables' => [
     'App\Mail\WelcomeMail',
 ],
 ```
 
-By default, emails are not blocked for any mailable
+By default, emails sent via all mailable classes are not blocked.
 
-#### Time Window Block
-This rule blocks emails during a specific time window within given timezone. Configure start and end times:
-
+#### 5️⃣ Time Window Block
+Blocks emails during a defined time range.
 ```php
 'time_window' => [
     'from' => '09:00',
@@ -136,65 +200,59 @@ This rule blocks emails during a specific time window within given timezone. Con
 ],
 ```
 
-Hour should be in 24 hours format. By default, emails are not blocked for a time range. 
-
-#### Email Block
-This rule blocks specific email addresses. Add emails in your configuration:
+- Uses 24-hour format
+- Timezone-aware
+#### 6️⃣ Email Block
+Blocks specific recipient email addresses.
 ```php
 'blocked_emails' => [
     'user@ample.com',
 ],
 ```
-By default, no individual emails are blocked.
+By default, no email addresses are blocked.
 
-## 📊 Available Insights
+## 📊 Insights & Metrics
 
-The package includes several built-in metrics for analyzing blocked emails:
+When logging is enabled, the package provides ready-to-use metrics to analyze email blocking behavior.
 
-- BlockedByMailableMetric
-- BlockedByRuleMetric
-- BlockedOverTimeMetric
-- CountBlockedEmailsMetric
-- ReceiverTypeDistributionMetric
-- TopBlockedRecipientMetric
-- TopBlockedSenderMetric
-- TopMailableRulePairsMetric
+### Available Metrics
 
-These help identify:
+| Metric Class                     | Description                            |
+| -------------------------------- | -------------------------------------- |
+| `CountBlockedEmailsMetric`       | Total number of blocked emails         |
+| `BlockedByRuleMetric`            | Emails blocked per rule                |
+| `BlockedByMailableMetric`        | Emails blocked per mailable            |
+| `BlockedOverTimeMetric`          | Blocking trends over time              |
+| `ReceiverTypeDistributionMetric` | Distribution by receiver type          |
+| `TopBlockedRecipientMetric`      | Most frequently blocked recipients     |
+| `TopBlockedSenderMetric`         | Senders triggering most blocks         |
+| `TopMailableRulePairsMetric`     | Most common mailable–rule combinations |
 
-- Frequently blocked mailables
-- Over-aggressive rules
-- Blocking trends over time
-
-
-### 📊 Insights Overview
-| Metric Class                  | What It Represents                                                      | Filter Options                         |
-| ----------------------------- | ----------------------------------------------------------------------- | ------------------------------------- |
-| `BlockedByMailableMetric`      | Shows how many emails were blocked **for each mail class**.            | `start_date`, `end_date`, `limit`     |
-| `BlockedByRuleMetric`          | Shows how many emails were blocked **by each blocking rule**.          | `start_date`, `end_date`, `limit`     |
-| `BlockedOverTimeMetric`        | Shows trends of blocked emails **over time** (per day/week/month).     | `start_date`, `end_date`  |
-| `CountBlockedEmailsMetric`     | Total number of blocked emails in a given time period.                 | `start_date`, `end_date`               |
-| `ReceiverTypeDistributionMetric` | Shows distribution of blocked emails **by receiver type**.          | `start_date`, `end_date`               |
-| `TopBlockedRecipientMetric`    | Lists recipients who **had the most blocked emails**.                  | `start_date`, `end_date`, `limit`     |
-| `TopBlockedSenderMetric`       | Lists senders who **triggered the most blocked emails**.               | `start_date`, `Hour should be in 24 hours formatend_date`, `limit`     |
-| `TopMailableRulePairsMetric`   | Shows **which mailables are blocked by which rules most frequently**.  | `start_date`, `end_date`, `limit`     |
-
-### Basic Usage
-
-#### Filters
-```php
-
-$filters = [
+---
+### Common Filters
+Most metrics support:
+```php 
+[
     'start_date' => '2025-12-01',
     'end_date' => '2025-12-24',
-    'limit' => 5, // return top 5 blocked mailables
-];
-
-$metric = new BlockedByMailableMetric();
-$metric->calculate($filters)
+    'limit' => 5,
+]
 ```
 
-#### Result
+### Example Usage
+```php
+use Sagautam5\EmailBlocker\Insights\Metrics\BlockedByMailableMetric;
+
+$metric = new BlockedByMailableMetric();
+
+$result = $metric->calculate([
+    'start_date' => '2025-12-01',
+    'end_date' => '2025-12-24',
+    'limit' => 5,
+]);
+```
+
+### Example Output
 ```php
 [
     [
@@ -208,16 +266,137 @@ $metric->calculate($filters)
 ]
 ```
 
-## 👥 Contributors
+🧩 Extending the Package
+
+You can create custom blocking rules or custom metrics by extending the provided base classes:
+
+- `BaseRule`
+
+- `BaseMetric`
+
+This allows deep customization without modifying the core package.
+
+### Example Custom Rule
+
+```php
+
+namespace App\Custom\Rules;
+
+use Closure;
+use App\Models\BlackList;
+use Sagautam5\EmailBlocker\Abstracts\BaseRule;
+
+class BlockEmailsInBlackListRule extends BaseRule
+{
+    /**
+     * @param  array<string>  $emails
+     * @return Closure|array<string>
+     */
+    public function handle(array $emails, Closure $next): Closure|array
+    {
+        $blockedEmails = BlackList::whereIn('emails', $emails)->pluck('emails')->toArray();
+        
+        if (!empty($blockedEmails)) {
+            $this->handleLog($blockedEmails);
+
+            return [];
+        }
+
+        return $next($emails);
+    }
+
+    public function getReason(): string
+    {
+        return 'Email is present on black list.';
+    }
+}
+
+```
+
+To enable this block rule, we need to add this into rules array inside config file
+
+```php
+
+use App\Custom\Rules\BlockEmailsInBlackListRule;
+
+'rules' => [
+    // Other Builtin Rules
+
+    BlockEmailsInBlackListRule::class,
+],
+
+```
+
+After this, all emails will be checked by this rule.
+
+### Example Custom Metric
+```php
+
+namespace App\Insights\Metrics;
+
+use Illuminate\Database\Eloquent\Builder;
+use Sagautam5\EmailBlocker\Abstracts\BaseMetric;
+use Sagautam5\EmailBlocker\Models\BlockedEmail;
+use Sagautam5\EmailBlocker\Enums\ReceiverType;
+
+class TotalBlockedPrimaryEmails extends BaseMetric
+{
+    public function getName(): string
+    {
+        return 'Total Blocked Primary Emails';
+    }
+
+    /**
+     * @param  array<string>  $filters
+     * @return array<mixed>
+     */
+    public function calculate(array $filters = []): array
+    {
+        /**
+         * @var Builder<BlockedEmail> $query
+         */
+        $query = BlockedEmail::query()->where('receiver_type', ReceiverType::CC);
+
+        $query = $this->applyDateFilters($query, $filters);
+
+        return [
+            'count' => $query->count(),
+        ];
+    }
+}
+```
+
+##### Usage
+
+```php
+use App\Insights\Metrics\TotalBlockedPrimaryEmails;
+
+$metric = new TotalBlockedPrimaryEmails();
+
+$totalBlocked = $metric->calculate([
+    'start_date' => '2025-06-01',
+    'end_date' => '2025-12-31'
+]);
+```
+
+##### Output
+
+```php
+[ 
+    'count' => 10
+];
+```
+
+## 🔐 Security
+If you discover a security vulnerability within this package, please send an e-mail to sagautam5@gmail.com, All security vulnerabilities will be promptly addressed.
+
+## 🤝 Contributing
+Please see CONTRIBUTING for details.
+
+## 👥 Credits
 
 Sagar Gautam — Author & Maintainer
 
-## 📄 License
-
-This package is open-sourced software licensed under the MIT license.
-
-See the full license here:
-[LICENSE](github.com/sagautam5/laravel-email-blocker/LICENSE)
 
 ## ⭐ Support
 
@@ -228,3 +407,11 @@ If this package helps you:
 - 💡 Suggest improvements
 
 Your support is appreciated !
+
+
+## 📄 License
+
+This package is open-sourced software licensed under the MIT license.
+
+See the full license here:
+[LICENSE](github.com/sagautam5/laravel-email-blocker/LICENSE)

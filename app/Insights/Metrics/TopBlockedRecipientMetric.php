@@ -4,10 +4,10 @@ namespace Sagautam5\EmailBlocker\Insights\Metrics;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
-use Sagautam5\EmailBlocker\Abstracts\AbstractMetric;
+use Sagautam5\EmailBlocker\Abstracts\BaseMetric;
 use Sagautam5\EmailBlocker\Models\BlockedEmail;
 
-class TopBlockedRecipientMetric extends AbstractMetric
+class TopBlockedRecipientMetric extends BaseMetric
 {
     public function getName(): string
     {
