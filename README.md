@@ -201,7 +201,7 @@ Blocks emails during a defined time range.
 ```
 
 - Uses 24-hour format
-- Timezone-aware
+- Timezone-aware ( By default, `config('app.timezone')` value is used)
 #### 6️⃣ Email Block
 Blocks specific recipient email addresses.
 ```php
@@ -266,7 +266,7 @@ $result = $metric->calculate([
 ]
 ```
 
-🧩 Extending the Package
+## 🧩 Extending the Package
 
 You can create custom blocking rules or custom metrics by extending the provided base classes:
 
