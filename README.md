@@ -431,7 +431,7 @@ composer test
 If you discover a security vulnerability within this package, please send an e-mail to sagautam5@gmail.com, All security vulnerabilities will be promptly addressed.
 
 ## 🤝 Contributing
-Please see CONTRIBUTING for details.
+Please see [CONTRIBUTING](CONTRIBUTING) for details.
 
 ## 👥 Credits
 
@@ -455,4 +455,4 @@ Your support is appreciated !
 This package is open-sourced software licensed under the MIT license.
 
 See the full license here:
-[LICENSE](github.com/sagautam5/laravel-email-blocker/LICENSE)
+[LICENSE](LICENSE)
