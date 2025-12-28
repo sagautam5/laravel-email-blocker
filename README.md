@@ -249,7 +249,7 @@ Blocks email sent via specific `Mailable` classes.
 By default, emails sent via all mailable classes are not blocked.
 
 #### 5️⃣ Time Window Block
-Blocks emails during a defined time range.
+Blocks email addresses during a defined time range.
 ```php
 'time_window' => [
     'from' => '09:00',
@@ -459,8 +459,7 @@ Please see [CONTRIBUTING](CONTRIBUTING) for details.
 ## 👥 Credits
 
 - [Sagar Gautam](https://github.com/sagautam5) — Author & Maintainer
-- All Contribtors
-
+- All Contributors
 
 ## ⭐ Support
 
