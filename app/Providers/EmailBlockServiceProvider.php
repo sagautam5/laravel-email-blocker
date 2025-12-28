@@ -32,7 +32,7 @@ class EmailBlockServiceProvider extends ServiceProvider
             $this->commands([
                 ValidateEmailBlockerConfigCommand::class,
             ]);
-        }else{
+        } else {
             EmailBlockerConfigValidator::validate(
                 config('email-blocker')
             );

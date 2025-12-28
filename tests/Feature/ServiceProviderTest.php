@@ -1,11 +1,10 @@
 <?php
 
-use Illuminate\Support\ServiceProvider;
-use Sagautam5\EmailBlocker\Providers\EmailBlockServiceProvider;
-
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\ServiceProvider;
 use Sagautam5\EmailBlocker\Events\EmailBlockedEvent;
 use Sagautam5\EmailBlocker\Listeners\LogBlockedEmail;
+use Sagautam5\EmailBlocker\Providers\EmailBlockServiceProvider;
 use Sagautam5\EmailBlocker\Supports\BlockedEmailContext;
 
 it('fires the LogBlockedEmail listener when EmailBlockedEvent is dispatched', function () {

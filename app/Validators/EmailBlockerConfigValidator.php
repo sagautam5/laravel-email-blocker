@@ -1,14 +1,17 @@
-<?php 
+<?php
 
 namespace Sagautam5\EmailBlocker\Validators;
 
 use Illuminate\Mail\Mailable;
-use Sagautam5\EmailBlocker\Exceptions\InvalidConfigurationException;
 use Sagautam5\EmailBlocker\Contracts\BlockEmailRule;
+use Sagautam5\EmailBlocker\Exceptions\InvalidConfigurationException;
 
 class EmailBlockerConfigValidator
 {
-    public static function validate(array $config)
+    /**
+     * @param  array<string, mixed>  $config
+     */
+    public static function validate(array $config): void
     {
         self::validateBooleans($config);
         self::validateRules($config['rules']);
@@ -19,6 +22,9 @@ class EmailBlockerConfigValidator
         self::validateEmails($config['settings']['blocked_emails']);
     }
 
+    /**
+     * @param  array<mixed>  $environments
+     */
     private static function validateEnvironments(array $environments): void
     {
         foreach ($environments as $environment) {
@@ -31,6 +37,9 @@ class EmailBlockerConfigValidator
         }
     }
 
+    /**
+     * @param  array<string, mixed>  $config
+     */
     private static function validateBooleans(array $config): void
     {
         foreach (['block_enabled', 'log_enabled'] as $key) {
@@ -50,6 +59,9 @@ class EmailBlockerConfigValidator
         }
     }
 
+    /**
+     * @param  array<string>  $rules
+     */
     private static function validateRules(array $rules): void
     {
         foreach ($rules as $rule) {
@@ -69,6 +81,9 @@ class EmailBlockerConfigValidator
         }
     }
 
+    /**
+     * @param  array<string, mixed>  $window
+     */
     private static function validateTimeWindow(array $window): void
     {
         foreach (['from', 'to'] as $key) {
@@ -82,7 +97,7 @@ class EmailBlockerConfigValidator
 
                 [$hours, $minutes] = explode(':', $window[$key]);
 
-                if ((int)$hours > 23 || (int)$minutes > 59) {
+                if ((int) $hours > 23 || (int) $minutes > 59) {
                     throw new InvalidConfigurationException(
                         "email-blocker: time_window.{$key} must be a valid 24-hour time.",
                         InvalidConfigurationException::INVALID_TIME_WINDOW
@@ -99,7 +114,9 @@ class EmailBlockerConfigValidator
         }
     }
 
-
+    /**
+     * @param  array<mixed>  $domains
+     */
     private static function validateDomains(array $domains): void
     {
         foreach ($domains as $domain) {
@@ -112,6 +129,9 @@ class EmailBlockerConfigValidator
         }
     }
 
+    /**
+     * @param  array<string>  $mailables
+     */
     private static function validateMailables(array $mailables): void
     {
         foreach ($mailables as $mailable) {
@@ -124,6 +144,9 @@ class EmailBlockerConfigValidator
         }
     }
 
+    /**
+     * @param  array<string>  $emails
+     */
     private static function validateEmails(array $emails): void
     {
         foreach ($emails as $email) {
