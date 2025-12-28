@@ -27,24 +27,24 @@ return [
     ],
 
     'settings' => [
+        'global_block' => env('GLOBAL_EMAIL_BLOCK_ENABLED', false),
+
         'blocked_environments' => [
             // 'local',
             // 'staging',
+        ],
+        'blocked_domains' => [
+            // 'example.com',
+            // E.g. 'gmail.com',
+        ],
+        'blocked_mailables' => [
+            // SendWelcomeEmail::class,
+            // E.g. 'App\Mail\WelcomeMail',
         ],
         'time_window' => [
             'from' => null, // '09:00',
             'to' => null, // '18:00',
             'timezone' => null, // 'Asia/Kathmandu',
-        ],
-        'global_block' => env('GLOBAL_EMAIL_BLOCK_ENABLED', true),
-        'blocked_domains' => [
-            // 'example.com',
-            // E.g. 'gmail.com',
-
-        ],
-        'blocked_mailables' => [
-            // SendWelcomeEmail::class,
-            // E.g. 'App\Mail\WelcomeMail',
         ],
         'blocked_emails' => [
             // E.g. 'user@ample.com',
