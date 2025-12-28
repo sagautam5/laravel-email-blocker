@@ -451,10 +451,15 @@ composer test
 ```
 
 ## 🔐 Security
-If you discover a security vulnerability within this package, please send an e-mail to sagautam5@gmail.com, All security vulnerabilities will be promptly addressed.
+Please review [our security policy](SECURITY) on how to report security vulnerabilities.
+
 
 ## 🤝 Contributing
 Please see [CONTRIBUTING](CONTRIBUTING) for details.
+
+## ⚖️ Code of Conduct
+In order to ensure that the this community is welcoming to all, please review and abide by the [Code of Conduct](CODE_OF_CONDUCT).
+
 
 ## 👥 Credits
 
