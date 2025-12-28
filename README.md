@@ -34,6 +34,7 @@ The package integrates seamlessly with Laravel’s mail system and introduces mi
 - [Installation](#-installation)
 - [Configuration](#-configuration)
     - [Default Configuration](#default-configuration)
+    - [Validate Configuration](#validate-configuration)
 - [Usage Guide](#-usage-guide)
     - [Disable Email Blocking Completely](#disable-email-blocking-completely)
     - [Disable Specific Rules](#disable-specific-rules)
@@ -162,6 +163,28 @@ return [
         ],
     ],
 ];
+```
+
+### Validate Configuration
+After executing `vendor:publish` to publish configuration file, you can adjust things as well as add new rules. To validate that your configuration is valid, you can just run following console command:
+
+```sh
+php artisan email-blocker:validate
+```
+
+If correct then,
+
+```sh
+✔ Email Blocker configuration is valid.
+```
+
+otherwise, you could see something like this in console:
+
+```sh 
+✖ Email Blocker configuration is invalid.
+
+email-blocker: 'settings.blocked_environments' must be an array of strings.
+
 ```
 ## 🧪 Usage Guide
 ### Disable Email Blocking Completely
