@@ -57,6 +57,7 @@ The package integrates seamlessly with Laravel’s mail system and introduces mi
         - [Output](#output)
 - [Security](#-security)
 - [Contributing](#-contributing)
+- [Code of Conduct](#️-code-of-conduct)
 - [Credits](#-credits)
 - [Support](#-support)
 - [License](#-license)
