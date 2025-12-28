@@ -30,4 +30,25 @@ abstract class TestCase extends BaseTestCase
             __DIR__.'/../database/migrations'
         );
     }
+
+    protected function defineEnvironment($app)
+    {
+        $app['config']->set('email-blocker', [
+            'block_enabled' => true,
+            'log_enabled' => false,
+            'rules' => [],
+            'settings' => [
+                'global_block' => false,
+                'time_window' => [
+                    'from' => null,
+                    'to' => null,
+                    'timezone' => null,
+                ],
+                'blocked_environments' => [],
+                'blocked_domains' => [],
+                'blocked_mailables' => [],
+                'blocked_emails' => [],
+            ],
+        ]);
+    }
 }
