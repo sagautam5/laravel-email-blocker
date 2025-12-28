@@ -19,7 +19,15 @@ class BlockByTimeWindowRule extends BaseRule
         if (! empty($timeWindow['from']) && ! empty($timeWindow['to'])) {
             $timezone = $timeWindow['timezone'] ?? config('app.timezone');
             $time = Carbon::now()->timezone($timezone);
-            if ($time->between($timeWindow['from'], $timeWindow['to'])) {
+
+            $from = Carbon::parse($timeWindow['from'], $timezone);
+            $to = Carbon::parse($timeWindow['to'], $timezone);
+
+            if ($from->gt($to)) {
+                $to->addDay();
+            }
+
+            if ($time->between($from, $to)) {
                 $this->handleLog($emails);
 
                 return [];
